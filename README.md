@@ -1,6 +1,6 @@
 # custom_radio_grouped_button
 
-![Pub](https://img.shields.io/pub/v/custom_radio_grouped_button)
+![Pub](https://img.shields.io/pub/v/custom_radio_grouped_button)((https://pub.dartlang.org/packages/custom_radio_grouped_button))
 
 Custom Radio Buttons and Grouped Check Box Button
 
