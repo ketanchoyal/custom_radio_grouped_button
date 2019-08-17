@@ -12,7 +12,7 @@ Add the following to your `pubspec.yaml` file:
       custom_radio_grouped_button: ^1.0.0
 
 # Creating Radio Button
-   
+
     CustomRadioButton(
     buttonColor: Theme.of(context).canvasColor,
     buttonLables: [
