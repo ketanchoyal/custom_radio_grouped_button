@@ -9,7 +9,7 @@ Custom Flutter widgets that makes Checkbox and Radio Buttons much cleaner and ea
 Add the following to your `pubspec.yaml` file:
 
     dependencies:
-      custom_radio_grouped_button: ^1.0.0
+      custom_radio_grouped_button: any
 
 # Creating Radio Button
 
