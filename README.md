@@ -53,3 +53,6 @@ Add the following to your `pubspec.yaml` file:
 
 ## Screenshots
 
+<img src="Screenshots/GroupButton.gif" alt="Grouped Button"/>
+
+<img src="Screenshots/RadioButton.gif" alt="Grouped Button"/>
