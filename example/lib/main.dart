@@ -23,6 +23,7 @@ class GroupedButton extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Grouped Button Example'),
+        centerTitle: true,
       ),
       floatingActionButton: FloatingActionButton.extended(
         label: Text('Radio Button'),
@@ -250,6 +251,7 @@ class RadioButton extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Radio Button Example'),
+        centerTitle: true,
       ),
       floatingActionButton: FloatingActionButton.extended(
         label: Text('Grouped Button'),

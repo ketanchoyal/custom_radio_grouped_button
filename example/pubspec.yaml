@@ -1,6 +1,9 @@
 name: example
 description: A new Flutter application.
 
+author: Ketan Choyal <ketanchoyal@gmail.com>
+homepage: https://github.com/ketanchoyal/custom_radio_grouped_button
+
 version: 1.0.0+1
 
 environment:
