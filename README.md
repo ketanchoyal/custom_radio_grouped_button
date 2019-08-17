@@ -1,5 +1,7 @@
 # custom_radio_grouped_button
 
+![Pub](https://img.shields.io/pub/v/custom_radio_grouped_button)
+
 Custom Radio Buttons and Grouped Check Box Button
 
 Custom Flutter widgets that makes Checkbox and Radio Buttons much cleaner and easier.
