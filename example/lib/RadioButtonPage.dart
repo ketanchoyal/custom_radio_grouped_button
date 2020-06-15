@@ -1,38 +1,22 @@
 import 'package:custom_radio_grouped_button/custom_radio_grouped_button.dart';
-import 'package:example/RadioButtonPage.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: GroupedButton());
-  }
-}
-
-class GroupedButton extends StatelessWidget {
-  const GroupedButton({Key key}) : super(key: key);
+class RadioButton extends StatelessWidget {
+  const RadioButton({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Grouped Button Example'),
+        title: Text('Radio Button Example'),
         centerTitle: true,
       ),
       floatingActionButton: FloatingActionButton.extended(
-        label: Text('Radio Button'),
+        label: Text('Grouped Button'),
         onPressed: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => RadioButton()));
+          Navigator.pop(context);
         },
-        icon: Icon(Icons.radio_button_checked),
+        icon: Icon(Icons.check_box),
       ),
       body: Container(
         child: Column(
@@ -62,30 +46,27 @@ class GroupedButton extends StatelessWidget {
                       SizedBox(
                         height: 10,
                       ),
-                      CustomCheckBoxGroup(
+                      CustomRadioButton(
+                        horizontal: true,
                         buttonColor: Theme.of(context).canvasColor,
                         buttonLables: [
-                          "Monday",
-                          "Tuesday",
-                          "Wednesday",
-                          "Thursday",
+                          'Student',
+                          'Parent',
+                          'Teacher',
+                          'hgfh',
+                          'jhgiugx'
                         ],
-                        buttonValuesList: [
-                          "Monday",
-                          "Tuesday",
-                          "Wednesday",
-                          "Thursday",
+                        buttonValues: [
+                          "STUDENT",
+                          "PARENT",
+                          "TEACHER",
+                          'hgfh',
+                          'jhgiugx'
                         ],
-                        checkBoxButtonValues: (values) {
-                          print(values);
+                        radioButtonValue: (value) {
+                          print(value);
                         },
-                        defaultSelected: "Monday",
-                        horizontal: true,
-                        width: 120,
-                        // hight: 50,
                         selectedColor: Theme.of(context).accentColor,
-                        padding: 5,
-                        // enableShape: true,
                       ),
                     ],
                   ),
@@ -103,30 +84,25 @@ class GroupedButton extends StatelessWidget {
                       SizedBox(
                         height: 10,
                       ),
-                      CustomCheckBoxGroup(
+                      CustomRadioButton(
+                        horizontal: true,
+                        enableShape: true,
+                        elevation: 0,
                         buttonColor: Theme.of(context).canvasColor,
                         buttonLables: [
-                          "Thursday",
-                          "Friday",
-                          "Saturday",
-                          "Sunday",
+                          'Student',
+                          'Parent',
+                          'Teacher',
                         ],
-                        buttonValuesList: [
-                          "Thursday",
-                          "Friday",
-                          "Saturday",
-                          "Sunday",
+                        buttonValues: [
+                          "STUDENT",
+                          "PARENT",
+                          "TEACHER",
                         ],
-                        checkBoxButtonValues: (values) {
-                          print(values);
+                        radioButtonValue: (value) {
+                          print(value);
                         },
-                        defaultSelected: "Sunday",
-                        horizontal: true,
-                        width: 120,
-                        // hight: 50,
                         selectedColor: Theme.of(context).accentColor,
-                        padding: 5,
-                        enableShape: true,
                       ),
                     ],
                   ),
@@ -157,37 +133,23 @@ class GroupedButton extends StatelessWidget {
                     SizedBox(
                       height: 10,
                     ),
-                    CustomCheckBoxGroup(
-                      fontSize: 18,
+                    CustomRadioButton(
+                      elevation: 0,
                       buttonColor: Theme.of(context).canvasColor,
                       buttonLables: [
-                        "Monday",
-                        "Tuesday",
-                        "Wednesday",
-                        "Thursday",
-                        "Friday",
-                        "Saturday",
-                        "Sunday",
+                        'Student',
+                        'Parent',
+                        'Teacher',
                       ],
-                      buttonValuesList: [
-                        "Monday",
-                        "Tuesday",
-                        "Wednesday",
-                        "Thursday",
-                        "Friday",
-                        "Saturday",
-                        "Sunday",
+                      buttonValues: [
+                        "STUDENT",
+                        "PARENT",
+                        "TEACHER",
                       ],
-                      checkBoxButtonValues: (values) {
-                        print(values);
+                      radioButtonValue: (value) {
+                        print(value);
                       },
-                      defaultSelected: "Monday",
-                      horizontal: false,
-                      width: 120,
-                      // hight: 50,
                       selectedColor: Theme.of(context).accentColor,
-                      padding: 5,
-                      // enableShape: true,
                     ),
                   ],
                 ),
@@ -203,9 +165,9 @@ class GroupedButton extends StatelessWidget {
                     SizedBox(
                       height: 10,
                     ),
-                    CustomCheckBoxGroup(
-                      fontSize: 18,
-                      autoWidth: true,
+                    CustomRadioButton(
+                      enableShape: true,
+                      elevation: 0,
                       buttonColor: Theme.of(context).canvasColor,
                       buttonLables: [
                         "Monday",
@@ -216,7 +178,7 @@ class GroupedButton extends StatelessWidget {
                         "Saturday",
                         "Sunday",
                       ],
-                      buttonValuesList: [
+                      buttonValues: [
                         "Monday",
                         "Tuesday",
                         "Wednesday",
@@ -225,16 +187,10 @@ class GroupedButton extends StatelessWidget {
                         "Saturday",
                         "Sunday",
                       ],
-                      checkBoxButtonValues: (values) {
-                        print(values);
+                      radioButtonValue: (value) {
+                        print(value);
                       },
-                      defaultSelected: "Sunday",
-                      horizontal: false,
-                      width: 120,
-                      // hight: 50,
                       selectedColor: Theme.of(context).accentColor,
-                      padding: 5,
-                      enableShape: true,
                     ),
                   ],
                 ),
@@ -246,4 +202,3 @@ class GroupedButton extends StatelessWidget {
     );
   }
 }
-

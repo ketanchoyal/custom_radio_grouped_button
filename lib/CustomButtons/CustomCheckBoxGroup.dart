@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 class CustomCheckBoxGroup extends StatefulWidget {
   CustomCheckBoxGroup({
     this.buttonLables,
+    this.fontSize = 15,
     this.buttonValuesList,
     this.checkBoxButtonValues,
     this.buttonColor,
     this.selectedColor,
-    this.hight = 35,
+    this.height = 35,
     this.width = 100,
+    this.autoWidth = true,
     this.defaultSelected,
     this.padding = 3,
     this.horizontal = false,
@@ -26,9 +28,13 @@ class CustomCheckBoxGroup extends StatefulWidget {
   final bool horizontal;
 
   final List buttonValuesList;
+  final double fontSize;
 
-  final double hight;
+  final double height;
   final double padding;
+
+  ///Only applied when in vertical mode
+  final bool autoWidth;
   final double width;
   final bool enableShape;
   final double elevation;
@@ -59,57 +65,55 @@ class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
   List<Widget> buildButtonsColumn() {
     List<Widget> buttons = [];
     for (int index = 0; index < widget.buttonLables.length; index++) {
-      var button = Expanded(
-        // flex: 1,
-        child: Padding(
-          padding: EdgeInsets.all(widget.padding),
-          child: Card(
-            color: selectedLables.contains(widget.buttonValuesList[index])
-                ? widget.selectedColor
-                : widget.buttonColor,
-            elevation: widget.elevation,
-            shape: widget.enableShape
-                ? widget.customShape == null
-                    ? RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(50)),
-                      )
-                    : widget.customShape
-                : null,
-            child: Container(
-              height: widget.hight,
-              child: MaterialButton(
-                shape: widget.enableShape
-                    ? widget.customShape == null
-                        ? OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Theme.of(context).primaryColor,
-                                width: 1),
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                          )
-                        : widget.customShape
-                    : OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Theme.of(context).primaryColor, width: 1),
-                        borderRadius: BorderRadius.zero,
-                      ),
-                onPressed: () {
-                  if (selectedLables.contains(widget.buttonValuesList[index])) {
-                    selectedLables.remove(widget.buttonValuesList[index]);
-                  } else {
-                    selectedLables.add(widget.buttonValuesList[index]);
-                  }
-                  setState(() {});
-                  widget.checkBoxButtonValues(selectedLables);
-                },
-                child: Text(
-                  widget.buttonLables[index],
-                  style: TextStyle(
-                    color:
-                        selectedLables.contains(widget.buttonValuesList[index])
-                            ? Colors.white
-                            : Theme.of(context).textTheme.body1.color,
-                    fontSize: 15,
-                  ),
+      var button = Padding(
+        padding: EdgeInsets.all(widget.padding),
+        child: Card(
+          color: selectedLables.contains(widget.buttonValuesList[index])
+              ? widget.selectedColor
+              : widget.buttonColor,
+          elevation: widget.elevation,
+          shape: widget.enableShape
+              ? widget.customShape == null
+                  ? RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(50)),
+                    )
+                  : widget.customShape
+              : null,
+          child: Container(
+            height: widget.height,
+            child: MaterialButton(
+              shape: widget.enableShape
+                  ? widget.customShape == null
+                      ? OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Theme.of(context).primaryColor,
+                              width: 1),
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                        )
+                      : widget.customShape
+                  : OutlineInputBorder(
+                      borderSide: BorderSide(
+                          color: Theme.of(context).primaryColor, width: 1),
+                      borderRadius: BorderRadius.zero,
+                    ),
+              onPressed: () {
+                if (selectedLables.contains(widget.buttonValuesList[index])) {
+                  selectedLables.remove(widget.buttonValuesList[index]);
+                } else {
+                  selectedLables.add(widget.buttonValuesList[index]);
+                }
+                setState(() {});
+                widget.checkBoxButtonValues(selectedLables);
+              },
+              child: Text(
+                widget.buttonLables[index],
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color:
+                      selectedLables.contains(widget.buttonValuesList[index])
+                          ? Colors.white
+                          : Theme.of(context).textTheme.bodyText1.color,
+                  fontSize: widget.fontSize,
                 ),
               ),
             ),
@@ -137,8 +141,8 @@ class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
                 : widget.customShape
             : null,
         child: Container(
-          height: widget.hight,
-          width: widget.width,
+          height: widget.height,
+          width: widget.autoWidth ? null : widget.width,
           constraints: BoxConstraints(maxWidth: 250),
           decoration: BoxDecoration(),
           child: MaterialButton(
@@ -170,8 +174,8 @@ class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
               style: TextStyle(
                 color: selectedLables.contains(widget.buttonValuesList[index])
                     ? Colors.white
-                    : Theme.of(context).textTheme.body1.color,
-                fontSize: 15,
+                    : Theme.of(context).textTheme.bodyText1.color,
+                fontSize: widget.fontSize,
               ),
             ),
           ),
@@ -187,23 +191,20 @@ class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
   Widget build(BuildContext context) {
     return Container(
       height: widget.horizontal
-          ? widget.hight * (widget.buttonLables.length * 1.5) +
+          ? widget.height * (widget.buttonLables.length * 1.5) +
               widget.padding * 2 * widget.buttonLables.length
-          : widget.hight + widget.padding * 2,
-      child: Padding(
-        padding: EdgeInsets.all(0),
-        child: Center(
-          child: widget.horizontal
-              ? Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: buildButtonsColumn(),
-                )
-              : ListView(
-                  scrollDirection: Axis.horizontal,
-                  // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: buildButtonsRow(),
-                ),
-        ),
+          : widget.height + widget.padding * 2,
+      child: Center(
+        child: widget.horizontal
+            ? ListView(
+                scrollDirection: Axis.vertical, 
+                children: buildButtonsColumn(),
+              )
+            : ListView(
+                scrollDirection: Axis.horizontal, 
+                // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: buildButtonsRow(),
+              ),
       ),
     );
   }
