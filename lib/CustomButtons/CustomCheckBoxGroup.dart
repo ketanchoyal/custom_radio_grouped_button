@@ -7,7 +7,7 @@ class CustomCheckBoxGroup extends StatefulWidget {
     this.fontSize = 15,
     this.buttonValuesList,
     this.checkBoxButtonValues,
-    this.buttonColor,
+    this.unSelectedColor,
     this.selectedColor,
     this.height = 35,
     this.width = 100,
@@ -17,9 +17,10 @@ class CustomCheckBoxGroup extends StatefulWidget {
     this.horizontal = false,
     this.enableShape = false,
     this.elevation = 0,
+    this.enableButtonWrap = false,
     this.customShape,
   })  : assert(buttonLables.length == buttonValuesList.length),
-        assert(buttonColor != null),
+        assert(unSelectedColor != null),
         // assert(defaultSelected != null
         // ? buttonValuesList.contains(defaultSelected) != false
         // : true),
@@ -34,7 +35,11 @@ class CustomCheckBoxGroup extends StatefulWidget {
   final double padding;
 
   ///Only applied when in vertical mode
+  ///This will use minimum space required
+  ///If enables it will ignore width field
   final bool autoWidth;
+
+  ///Use this if you want to keep width of all the buttons same
   final double width;
   final bool enableShape;
   final double elevation;
@@ -43,11 +48,20 @@ class CustomCheckBoxGroup extends StatefulWidget {
 
   final Function(List<dynamic>) checkBoxButtonValues;
 
+  ///Selected Color of button
   final Color selectedColor;
+
+  ///Default Selected button
   final dynamic defaultSelected;
 
-  final Color buttonColor;
+  ///Unselected Color of the button
+  final Color unSelectedColor;
+
+  /// A custom Shape can be applied (will work only if enableShape is true)
   final ShapeBorder customShape;
+
+  /// This will enable button wrap (will work only if orientation is vertical)
+  final bool enableButtonWrap;
 
   _CustomCheckBoxGroupState createState() => _CustomCheckBoxGroupState();
 }
@@ -58,11 +72,15 @@ class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
   @override
   void initState() {
     super.initState();
-    selectedLables.add(widget.defaultSelected);
-    // currentSelectedLabel = widget.buttonLables[0];
+    if (widget.defaultSelected != null) {
+      if (widget.buttonValuesList.contains(widget.defaultSelected))
+        selectedLables.add(widget.defaultSelected);
+      else
+        throw Exception("Default Value not found in button value list");
+    }
   }
 
-  List<Widget> buildButtonsColumn() {
+  List<Widget> _buildButtonsColumn() {
     List<Widget> buttons = [];
     for (int index = 0; index < widget.buttonLables.length; index++) {
       var button = Padding(
@@ -70,7 +88,7 @@ class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
         child: Card(
           color: selectedLables.contains(widget.buttonValuesList[index])
               ? widget.selectedColor
-              : widget.buttonColor,
+              : widget.unSelectedColor,
           elevation: widget.elevation,
           shape: widget.enableShape
               ? widget.customShape == null
@@ -86,8 +104,7 @@ class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
                   ? widget.customShape == null
                       ? OutlineInputBorder(
                           borderSide: BorderSide(
-                              color: Theme.of(context).primaryColor,
-                              width: 1),
+                              color: Theme.of(context).primaryColor, width: 1),
                           borderRadius: BorderRadius.all(Radius.circular(20)),
                         )
                       : widget.customShape
@@ -108,11 +125,12 @@ class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
               child: Text(
                 widget.buttonLables[index],
                 textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
                 style: TextStyle(
-                  color:
-                      selectedLables.contains(widget.buttonValuesList[index])
-                          ? Colors.white
-                          : Theme.of(context).textTheme.bodyText1.color,
+                  color: selectedLables.contains(widget.buttonValuesList[index])
+                      ? Colors.white
+                      : Theme.of(context).textTheme.bodyText1.color,
                   fontSize: widget.fontSize,
                 ),
               ),
@@ -125,13 +143,13 @@ class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
     return buttons;
   }
 
-  List<Widget> buildButtonsRow() {
+  List<Widget> _buildButtonsRow() {
     List<Widget> buttons = [];
     for (int index = 0; index < widget.buttonLables.length; index++) {
       var button = Card(
         color: selectedLables.contains(widget.buttonValuesList[index])
             ? widget.selectedColor
-            : widget.buttonColor,
+            : widget.unSelectedColor,
         elevation: widget.elevation,
         shape: widget.enableShape
             ? widget.customShape == null
@@ -159,7 +177,6 @@ class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
                         color: Theme.of(context).primaryColor, width: 1),
                     borderRadius: BorderRadius.zero,
                   ),
-            
             onPressed: () {
               if (selectedLables.contains(widget.buttonValuesList[index])) {
                 selectedLables.remove(widget.buttonValuesList[index]);
@@ -171,6 +188,9 @@ class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
             },
             child: Text(
               widget.buttonLables[index],
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
               style: TextStyle(
                 color: selectedLables.contains(widget.buttonValuesList[index])
                     ? Colors.white
@@ -189,23 +209,40 @@ class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: widget.horizontal
-          ? widget.height * (widget.buttonLables.length * 1.5) +
-              widget.padding * 2 * widget.buttonLables.length
-          : widget.height + widget.padding * 2,
-      child: Center(
-        child: widget.horizontal
-            ? ListView(
-                scrollDirection: Axis.vertical, 
-                children: buildButtonsColumn(),
-              )
-            : ListView(
-                scrollDirection: Axis.horizontal, 
-                // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: buildButtonsRow(),
-              ),
-      ),
-    );
+    return _buildCheckBoxButtons();
+  }
+
+  _buildCheckBoxButtons() {
+    if (widget.horizontal)
+      return Container(
+        height: widget.height * (widget.buttonLables.length * 1.5) +
+            widget.padding * 2 * widget.buttonLables.length,
+        child: Center(
+          child: ListView(
+            scrollDirection: Axis.vertical,
+            children: _buildButtonsColumn(),
+          ),
+        ),
+      );
+    if (!widget.horizontal && widget.enableButtonWrap)
+      return Container(
+        child: Center(
+          child: Wrap(
+            direction: Axis.horizontal,
+            alignment: WrapAlignment.start,
+            children: _buildButtonsRow(),
+          ),
+        ),
+      );
+    if (!widget.horizontal && !widget.enableButtonWrap)
+      return Container(
+        height: widget.height + widget.padding * 2,
+        child: Center(
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            children: _buildButtonsRow(),
+          ),
+        ),
+      );
   }
 }

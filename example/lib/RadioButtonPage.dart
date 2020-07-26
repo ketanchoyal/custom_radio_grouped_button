@@ -48,7 +48,7 @@ class RadioButton extends StatelessWidget {
                       ),
                       CustomRadioButton(
                         horizontal: true,
-                        buttonColor: Theme.of(context).canvasColor,
+                        unSelectedColor: Theme.of(context).canvasColor,
                         buttonLables: [
                           'Student',
                           'Parent',
@@ -88,7 +88,7 @@ class RadioButton extends StatelessWidget {
                         horizontal: true,
                         enableShape: true,
                         elevation: 0,
-                        buttonColor: Theme.of(context).canvasColor,
+                        unSelectedColor: Theme.of(context).canvasColor,
                         buttonLables: [
                           'Student',
                           'Parent',
@@ -135,7 +135,7 @@ class RadioButton extends StatelessWidget {
                     ),
                     CustomRadioButton(
                       elevation: 0,
-                      buttonColor: Theme.of(context).canvasColor,
+                      unSelectedColor: Theme.of(context).canvasColor,
                       buttonLables: [
                         'Student',
                         'Parent',
@@ -168,7 +168,11 @@ class RadioButton extends StatelessWidget {
                     CustomRadioButton(
                       enableShape: true,
                       elevation: 0,
-                      buttonColor: Theme.of(context).canvasColor,
+                      defaultSelected: "Sunday",
+                      enableButtonWrap: true,
+                      width: 120,
+                      autoWidth: false,
+                      unSelectedColor: Theme.of(context).canvasColor,
                       buttonLables: [
                         "Monday",
                         "Tuesday",
