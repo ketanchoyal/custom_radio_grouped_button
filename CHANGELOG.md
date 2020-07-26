@@ -1,3 +1,10 @@
+## [1.0.2] - July 25, 2020
+
+Features Added:
+- Added Wrap property to wrap verticle buttons
+- Added default checked button for CustomRadio button
+- Added a better way to set default values
+
 ## [1.0.1] - June 15, 2020
 
 Features Added:

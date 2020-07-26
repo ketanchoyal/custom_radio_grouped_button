@@ -63,7 +63,7 @@ class GroupedButton extends StatelessWidget {
                         height: 10,
                       ),
                       CustomCheckBoxGroup(
-                        buttonColor: Theme.of(context).canvasColor,
+                        unSelectedColor: Theme.of(context).canvasColor,
                         buttonLables: [
                           "Monday",
                           "Tuesday",
@@ -104,7 +104,7 @@ class GroupedButton extends StatelessWidget {
                         height: 10,
                       ),
                       CustomCheckBoxGroup(
-                        buttonColor: Theme.of(context).canvasColor,
+                        unSelectedColor: Theme.of(context).canvasColor,
                         buttonLables: [
                           "Thursday",
                           "Friday",
@@ -159,7 +159,7 @@ class GroupedButton extends StatelessWidget {
                     ),
                     CustomCheckBoxGroup(
                       fontSize: 18,
-                      buttonColor: Theme.of(context).canvasColor,
+                      unSelectedColor: Theme.of(context).canvasColor,
                       buttonLables: [
                         "Monday",
                         "Tuesday",
@@ -183,6 +183,7 @@ class GroupedButton extends StatelessWidget {
                       },
                       defaultSelected: "Monday",
                       horizontal: false,
+                      enableButtonWrap: false,
                       width: 120,
                       // hight: 50,
                       selectedColor: Theme.of(context).accentColor,
@@ -197,7 +198,7 @@ class GroupedButton extends StatelessWidget {
                       height: 10,
                     ),
                     Text(
-                      'Shape Enabled',
+                      'Shape Enabled and Wrap enabled',
                       style: TextStyle(fontSize: 15),
                     ),
                     SizedBox(
@@ -205,8 +206,9 @@ class GroupedButton extends StatelessWidget {
                     ),
                     CustomCheckBoxGroup(
                       fontSize: 18,
-                      autoWidth: true,
-                      buttonColor: Theme.of(context).canvasColor,
+                      autoWidth: false,
+                      enableButtonWrap: true,
+                      unSelectedColor: Theme.of(context).canvasColor,
                       buttonLables: [
                         "Monday",
                         "Tuesday",
@@ -246,4 +248,3 @@ class GroupedButton extends StatelessWidget {
     );
   }
 }
-

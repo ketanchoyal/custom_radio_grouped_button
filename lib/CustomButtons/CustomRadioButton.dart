@@ -8,17 +8,19 @@ class CustomRadioButton extends StatefulWidget {
     this.fontSize = 15,
     this.autoWidth = true,
     this.radioButtonValue,
-    this.buttonColor,
+    this.unSelectedColor,
     this.padding = 3,
     this.selectedColor,
     this.height = 35,
     this.width = 100,
+    this.enableButtonWrap = false,
     this.horizontal = false,
     this.enableShape = false,
     this.elevation = 10,
+    this.defaultSelected,
     this.customShape,
   })  : assert(buttonLables.length == buttonValues.length),
-        assert(buttonColor != null),
+        assert(unSelectedColor != null),
         assert(selectedColor != null);
 
   final bool horizontal;
@@ -26,11 +28,18 @@ class CustomRadioButton extends StatefulWidget {
   final List buttonValues;
 
   final double height;
-  final double width;
   final double padding;
 
+  ///Default selected value
+  final dynamic defaultSelected;
+
   ///Only applied when in vertical mode
+  ///This will use minimum space required
+  ///If enables it will ignore width field
   final bool autoWidth;
+
+  ///Use this if you want to keep width of all the buttons same
+  final double width;
 
   final List<String> buttonLables;
 
@@ -38,10 +47,17 @@ class CustomRadioButton extends StatefulWidget {
 
   final Function(dynamic) radioButtonValue;
 
+  ///Unselected Color of the button
+  final Color unSelectedColor;
+
+  ///Selected Color of button
   final Color selectedColor;
 
-  final Color buttonColor;
+  /// A custom Shape can be applied (will work only if enableShape is true)
   final ShapeBorder customShape;
+
+  /// This will enable button wrap (will work only if orientation is vertical)
+  final bool enableButtonWrap;
   final bool enableShape;
   final double elevation;
 
@@ -49,24 +65,28 @@ class CustomRadioButton extends StatefulWidget {
 }
 
 class _CustomRadioButtonState extends State<CustomRadioButton> {
-  int currentSelected = 0;
-  String currentSelectedLabel;
+  String _currentSelectedLabel;
 
   @override
   void initState() {
     super.initState();
-    currentSelectedLabel = widget.buttonLables[0];
+    if (widget.defaultSelected != null) {
+      if (widget.buttonValues.contains(widget.defaultSelected))
+        _currentSelectedLabel = widget.defaultSelected;
+      else
+        throw Exception("Default Value not found in button value list");
+    }
   }
 
-  List<Widget> buildButtonsColumn() {
+  List<Widget> _buildButtonsColumn() {
     List<Widget> buttons = [];
     for (int index = 0; index < widget.buttonLables.length; index++) {
       var button = Padding(
         padding: EdgeInsets.all(widget.padding),
         child: Card(
-          color: currentSelectedLabel == widget.buttonLables[index]
+          color: _currentSelectedLabel == widget.buttonLables[index]
               ? widget.selectedColor
-              : widget.buttonColor,
+              : widget.unSelectedColor,
           elevation: widget.elevation,
           shape: widget.enableShape
               ? widget.customShape == null
@@ -94,14 +114,16 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
               onPressed: () {
                 widget.radioButtonValue(widget.buttonValues[index]);
                 setState(() {
-                  currentSelected = index;
-                  currentSelectedLabel = widget.buttonLables[index];
+                  _currentSelectedLabel = widget.buttonLables[index];
                 });
               },
               child: Text(
                 widget.buttonLables[index],
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
                 style: TextStyle(
-                  color: currentSelectedLabel == widget.buttonLables[index]
+                  color: _currentSelectedLabel == widget.buttonLables[index]
                       ? Colors.white
                       : Theme.of(context).textTheme.bodyText1.color,
                   fontSize: widget.fontSize,
@@ -116,13 +138,13 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
     return buttons;
   }
 
-  List<Widget> buildButtonsRow() {
+  List<Widget> _buildButtonsRow() {
     List<Widget> buttons = [];
     for (int index = 0; index < widget.buttonLables.length; index++) {
       var button = Card(
-        color: currentSelectedLabel == widget.buttonLables[index]
+        color: _currentSelectedLabel == widget.buttonLables[index]
             ? widget.selectedColor
-            : widget.buttonColor,
+            : widget.unSelectedColor,
         elevation: widget.elevation,
         shape: widget.enableShape
             ? widget.customShape == null
@@ -152,14 +174,16 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
             onPressed: () {
               widget.radioButtonValue(widget.buttonValues[index]);
               setState(() {
-                currentSelected = index;
-                currentSelectedLabel = widget.buttonLables[index];
+                _currentSelectedLabel = widget.buttonLables[index];
               });
             },
             child: Text(
               widget.buttonLables[index],
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
               style: TextStyle(
-                color: currentSelectedLabel == widget.buttonLables[index]
+                color: _currentSelectedLabel == widget.buttonLables[index]
                     ? Colors.white
                     : Theme.of(context).textTheme.bodyText1.color,
                 fontSize: widget.fontSize,
@@ -175,23 +199,40 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: widget.horizontal
-          ? widget.height * (widget.buttonLables.length * 1.5) +
-              widget.padding * 2 * widget.buttonLables.length
-          : widget.height + widget.padding * 2,
-      child: Center(
-        child: widget.horizontal
-            ? ListView(
-                scrollDirection: Axis.vertical,
-                children: buildButtonsColumn(),
-              )
-            : ListView(
-                scrollDirection: Axis.horizontal,
-                // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: buildButtonsRow(),
-              ),
-      ),
-    );
+    return _buildRadioButtons();
+  }
+
+  _buildRadioButtons() {
+    if (widget.horizontal)
+      return Container(
+        height: widget.height * (widget.buttonLables.length * 1.5) +
+            widget.padding * 2 * widget.buttonLables.length,
+        child: Center(
+          child: ListView(
+            scrollDirection: Axis.vertical,
+            children: _buildButtonsColumn(),
+          ),
+        ),
+      );
+    if (!widget.horizontal && widget.enableButtonWrap)
+      return Container(
+        child: Center(
+          child: Wrap(
+            direction: Axis.horizontal,
+            alignment: WrapAlignment.start,
+            children: _buildButtonsRow(),
+          ),
+        ),
+      );
+    if (!widget.horizontal && !widget.enableButtonWrap)
+      return Container(
+        height: widget.height + widget.padding * 2,
+        child: Center(
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            children: _buildButtonsRow(),
+          ),
+        ),
+      );
   }
 }
