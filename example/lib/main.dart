@@ -35,7 +35,7 @@ class GroupedButton extends StatelessWidget {
         icon: Icon(Icons.radio_button_checked),
       ),
       body: Container(
-        child: Column(
+        child: ListView(
           children: <Widget>[
             SizedBox(
               height: 10,
@@ -85,6 +85,7 @@ class GroupedButton extends StatelessWidget {
                         // hight: 50,
                         selectedColor: Theme.of(context).accentColor,
                         padding: 5,
+                        spacing: 20.0,
                         // enableShape: true,
                       ),
                     ],

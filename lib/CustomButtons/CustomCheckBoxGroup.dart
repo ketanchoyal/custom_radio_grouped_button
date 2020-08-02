@@ -1,4 +1,5 @@
 //library custom_radio_grouped_button;
+import 'package:custom_radio_grouped_button/CustomButtons/CustomListViewSpacing.dart';
 import 'package:flutter/material.dart';
 
 class CustomCheckBoxGroup extends StatefulWidget {
@@ -14,6 +15,7 @@ class CustomCheckBoxGroup extends StatefulWidget {
     this.autoWidth = true,
     this.defaultSelected,
     this.padding = 3,
+    this.spacing=0.0,
     this.horizontal = false,
     this.enableShape = false,
     this.elevation = 0,
@@ -33,7 +35,7 @@ class CustomCheckBoxGroup extends StatefulWidget {
 
   final double height;
   final double padding;
-
+  final double spacing;
   ///Only applied when in vertical mode
   ///This will use minimum space required
   ///If enables it will ignore width field
@@ -218,7 +220,8 @@ class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
         height: widget.height * (widget.buttonLables.length * 1.5) +
             widget.padding * 2 * widget.buttonLables.length,
         child: Center(
-          child: ListView(
+          child: CustomListViewSpacing(
+            spacing: widget.spacing,
             scrollDirection: Axis.vertical,
             children: _buildButtonsColumn(),
           ),
@@ -228,6 +231,8 @@ class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
       return Container(
         child: Center(
           child: Wrap(
+            spacing: widget.spacing,
+
             direction: Axis.horizontal,
             alignment: WrapAlignment.start,
             children: _buildButtonsRow(),
@@ -238,7 +243,8 @@ class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
       return Container(
         height: widget.height + widget.padding * 2,
         child: Center(
-          child: ListView(
+          child: CustomListViewSpacing(
+            spacing: widget.spacing,
             scrollDirection: Axis.horizontal,
             children: _buildButtonsRow(),
           ),

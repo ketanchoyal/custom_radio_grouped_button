@@ -19,7 +19,7 @@ class RadioButton extends StatelessWidget {
         icon: Icon(Icons.check_box),
       ),
       body: Container(
-        child: Column(
+        child: ListView(
           children: <Widget>[
             SizedBox(
               height: 10,
