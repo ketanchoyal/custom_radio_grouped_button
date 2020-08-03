@@ -26,6 +26,7 @@ class RadioButton extends StatelessWidget {
             ),
             Text(
               'Horizontal',
+              textAlign: TextAlign.center,
               style: TextStyle(fontSize: 20),
             ),
             SizedBox(
@@ -114,6 +115,7 @@ class RadioButton extends StatelessWidget {
             ),
             Text(
               'Verticle',
+              textAlign: TextAlign.center,
               style: TextStyle(fontSize: 20),
             ),
             SizedBox(

@@ -21,9 +21,15 @@ class CustomRadioButton extends StatefulWidget {
     this.elevation = 10,
     this.defaultSelected,
     this.customShape,
-  })  : assert(buttonLables.length == buttonValues.length),
-        assert(unSelectedColor != null),
-        assert(selectedColor != null);
+    this.wrapAlignment = WrapAlignment.start,
+  })  : assert(buttonLables.length == buttonValues.length,
+            "Button values list and button lables list should have same number of eliments "),
+        assert(unSelectedColor != null, "Unselected color cannot be null"),
+        assert(buttonValues.toSet().length == buttonValues.length,
+            "Multiple buttons with same value cannot exist"),
+        assert(buttonLables.toSet().length == buttonLables.length,
+            "Multiple buttons label wth same value cannot exist"),
+        assert(selectedColor != null, "Selected color cannpt be null");
 
   final bool horizontal;
 
@@ -31,13 +37,16 @@ class CustomRadioButton extends StatefulWidget {
 
   final double height;
   final double padding;
+
+  ///Spacing between buttons
   final double spacing;
+
   ///Default selected value
   final dynamic defaultSelected;
 
   ///Only applied when in vertical mode
   ///This will use minimum space required
-  ///If enables it will ignore width field
+  ///If enables it will ignore [width] field
   final bool autoWidth;
 
   ///Use this if you want to keep width of all the buttons same
@@ -55,11 +64,17 @@ class CustomRadioButton extends StatefulWidget {
   ///Selected Color of button
   final Color selectedColor;
 
-  /// A custom Shape can be applied (will work only if enableShape is true)
+  /// A custom Shape can be applied (will work only if [enableShape] is true)
   final ShapeBorder customShape;
+
+  ///alignment for button when [enableButtonWrap] is true
+  final WrapAlignment wrapAlignment;
 
   /// This will enable button wrap (will work only if orientation is vertical)
   final bool enableButtonWrap;
+
+  ///if true button will have rounded corners
+  ///If you want custom shape you can use [customShape] property
   final bool enableShape;
   final double elevation;
 
@@ -223,7 +238,7 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
           child: Wrap(
             spacing: widget.spacing,
             direction: Axis.horizontal,
-            alignment: WrapAlignment.start,
+            alignment: widget.wrapAlignment,
             children: _buildButtonsRow(),
           ),
         ),

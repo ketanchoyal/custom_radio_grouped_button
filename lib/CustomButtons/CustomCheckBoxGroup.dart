@@ -15,18 +15,21 @@ class CustomCheckBoxGroup extends StatefulWidget {
     this.autoWidth = true,
     this.defaultSelected,
     this.padding = 3,
-    this.spacing=0.0,
+    this.spacing = 0.0,
     this.horizontal = false,
     this.enableShape = false,
     this.elevation = 0,
     this.enableButtonWrap = false,
     this.customShape,
-  })  : assert(buttonLables.length == buttonValuesList.length),
-        assert(unSelectedColor != null),
-        // assert(defaultSelected != null
-        // ? buttonValuesList.contains(defaultSelected) != false
-        // : true),
-        assert(selectedColor != null);
+    this.wrapAlignment = WrapAlignment.start,
+  })  : assert(buttonLables.length == buttonValuesList.length,
+            "Button values list and button lables list should have same number of eliments "),
+        assert(unSelectedColor != null, "Unselected color cannot be null"),
+        assert(buttonValuesList.toSet().length == buttonValuesList.length,
+            "Multiple buttons with same value cannot exist"),
+        assert(buttonLables.toSet().length == buttonLables.length,
+            "Multiple buttons label wth same value cannot exist"),
+        assert(selectedColor != null, "Selected color cannpt be null");
 
   final bool horizontal;
 
@@ -35,14 +38,20 @@ class CustomCheckBoxGroup extends StatefulWidget {
 
   final double height;
   final double padding;
+
+  ///Spacing between buttons
   final double spacing;
+
   ///Only applied when in vertical mode
   ///This will use minimum space required
-  ///If enables it will ignore width field
+  ///If enables it will ignore [width] field
   final bool autoWidth;
 
   ///Use this if you want to keep width of all the buttons same
   final double width;
+
+  ///if true button will have rounded corners
+  ///If you want custom shape you can use [customShape] property
   final bool enableShape;
   final double elevation;
 
@@ -53,13 +62,16 @@ class CustomCheckBoxGroup extends StatefulWidget {
   ///Selected Color of button
   final Color selectedColor;
 
+  ///alignment for button when [enableButtonWrap] is true
+  final WrapAlignment wrapAlignment;
+
   ///Default Selected button
   final dynamic defaultSelected;
 
   ///Unselected Color of the button
   final Color unSelectedColor;
 
-  /// A custom Shape can be applied (will work only if enableShape is true)
+  /// A custom Shape can be applied (will work only if [enableShape] is true)
   final ShapeBorder customShape;
 
   /// This will enable button wrap (will work only if orientation is vertical)
@@ -83,12 +95,12 @@ class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
   }
 
   List<Widget> _buildButtonsColumn() {
-    List<Widget> buttons = [];
-    for (int index = 0; index < widget.buttonLables.length; index++) {
-      var button = Padding(
+    return widget.buttonValuesList.map((e) {
+      int index = widget.buttonValuesList.indexOf(e);
+      return Padding(
         padding: EdgeInsets.all(widget.padding),
         child: Card(
-          color: selectedLables.contains(widget.buttonValuesList[index])
+          color: selectedLables.contains(e)
               ? widget.selectedColor
               : widget.unSelectedColor,
           elevation: widget.elevation,
@@ -116,10 +128,10 @@ class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
                       borderRadius: BorderRadius.zero,
                     ),
               onPressed: () {
-                if (selectedLables.contains(widget.buttonValuesList[index])) {
-                  selectedLables.remove(widget.buttonValuesList[index]);
+                if (selectedLables.contains(e)) {
+                  selectedLables.remove(e);
                 } else {
-                  selectedLables.add(widget.buttonValuesList[index]);
+                  selectedLables.add(e);
                 }
                 setState(() {});
                 widget.checkBoxButtonValues(selectedLables);
@@ -130,7 +142,7 @@ class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
                 style: TextStyle(
-                  color: selectedLables.contains(widget.buttonValuesList[index])
+                  color: selectedLables.contains(e)
                       ? Colors.white
                       : Theme.of(context).textTheme.bodyText1.color,
                   fontSize: widget.fontSize,
@@ -140,16 +152,14 @@ class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
           ),
         ),
       );
-      buttons.add(button);
-    }
-    return buttons;
+    }).toList();
   }
 
   List<Widget> _buildButtonsRow() {
-    List<Widget> buttons = [];
-    for (int index = 0; index < widget.buttonLables.length; index++) {
-      var button = Card(
-        color: selectedLables.contains(widget.buttonValuesList[index])
+    return widget.buttonValuesList.map((e) {
+      int index = widget.buttonValuesList.indexOf(e);
+      return Card(
+        color: selectedLables.contains(e)
             ? widget.selectedColor
             : widget.unSelectedColor,
         elevation: widget.elevation,
@@ -180,10 +190,10 @@ class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
                     borderRadius: BorderRadius.zero,
                   ),
             onPressed: () {
-              if (selectedLables.contains(widget.buttonValuesList[index])) {
-                selectedLables.remove(widget.buttonValuesList[index]);
+              if (selectedLables.contains(e)) {
+                selectedLables.remove(e);
               } else {
-                selectedLables.add(widget.buttonValuesList[index]);
+                selectedLables.add(e);
               }
               setState(() {});
               widget.checkBoxButtonValues(selectedLables);
@@ -194,7 +204,7 @@ class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
               style: TextStyle(
-                color: selectedLables.contains(widget.buttonValuesList[index])
+                color: selectedLables.contains(e)
                     ? Colors.white
                     : Theme.of(context).textTheme.bodyText1.color,
                 fontSize: widget.fontSize,
@@ -204,9 +214,7 @@ class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
         ),
         // ),
       );
-      buttons.add(button);
-    }
-    return buttons;
+    }).toList();
   }
 
   @override
@@ -232,9 +240,8 @@ class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
         child: Center(
           child: Wrap(
             spacing: widget.spacing,
-
             direction: Axis.horizontal,
-            alignment: WrapAlignment.start,
+            alignment: widget.wrapAlignment,
             children: _buildButtonsRow(),
           ),
         ),

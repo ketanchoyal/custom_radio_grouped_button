@@ -42,6 +42,7 @@ class GroupedButton extends StatelessWidget {
             ),
             Text(
               'Horizontal',
+              textAlign: TextAlign.center,
               style: TextStyle(fontSize: 20),
             ),
             SizedBox(
@@ -85,7 +86,7 @@ class GroupedButton extends StatelessWidget {
                         // hight: 50,
                         selectedColor: Theme.of(context).accentColor,
                         padding: 5,
-                        spacing: 20.0,
+                        spacing: 0.0,
                         // enableShape: true,
                       ),
                     ],
@@ -139,6 +140,7 @@ class GroupedButton extends StatelessWidget {
             ),
             Text(
               'Verticle',
+              textAlign: TextAlign.center,
               style: TextStyle(fontSize: 20),
             ),
             SizedBox(
@@ -209,6 +211,7 @@ class GroupedButton extends StatelessWidget {
                       fontSize: 18,
                       autoWidth: false,
                       enableButtonWrap: true,
+                      wrapAlignment: WrapAlignment.center,
                       unSelectedColor: Theme.of(context).canvasColor,
                       buttonLables: [
                         "Monday",
