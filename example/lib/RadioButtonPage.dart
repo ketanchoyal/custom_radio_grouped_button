@@ -19,13 +19,14 @@ class RadioButton extends StatelessWidget {
         icon: Icon(Icons.check_box),
       ),
       body: Container(
-        child: Column(
+        child: ListView(
           children: <Widget>[
             SizedBox(
               height: 10,
             ),
             Text(
               'Horizontal',
+              textAlign: TextAlign.center,
               style: TextStyle(fontSize: 20),
             ),
             SizedBox(
@@ -114,6 +115,7 @@ class RadioButton extends StatelessWidget {
             ),
             Text(
               'Verticle',
+              textAlign: TextAlign.center,
               style: TextStyle(fontSize: 20),
             ),
             SizedBox(

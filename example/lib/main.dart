@@ -35,13 +35,14 @@ class GroupedButton extends StatelessWidget {
         icon: Icon(Icons.radio_button_checked),
       ),
       body: Container(
-        child: Column(
+        child: ListView(
           children: <Widget>[
             SizedBox(
               height: 10,
             ),
             Text(
               'Horizontal',
+              textAlign: TextAlign.center,
               style: TextStyle(fontSize: 20),
             ),
             SizedBox(
@@ -85,6 +86,7 @@ class GroupedButton extends StatelessWidget {
                         // hight: 50,
                         selectedColor: Theme.of(context).accentColor,
                         padding: 5,
+                        spacing: 0.0,
                         // enableShape: true,
                       ),
                     ],
@@ -138,6 +140,7 @@ class GroupedButton extends StatelessWidget {
             ),
             Text(
               'Verticle',
+              textAlign: TextAlign.center,
               style: TextStyle(fontSize: 20),
             ),
             SizedBox(
@@ -208,6 +211,7 @@ class GroupedButton extends StatelessWidget {
                       fontSize: 18,
                       autoWidth: false,
                       enableButtonWrap: true,
+                      wrapAlignment: WrapAlignment.center,
                       unSelectedColor: Theme.of(context).canvasColor,
                       buttonLables: [
                         "Monday",

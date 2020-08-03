@@ -1,3 +1,9 @@
+## [1.0.3] - August 03, 2020
+
+Features Added:
+- WrapAllignment Added 
+- Spacing property ( Pull Request by @devomar615 )
+
 ## [1.0.2] - July 25, 2020
 
 Features Added:
