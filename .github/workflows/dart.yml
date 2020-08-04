@@ -1,6 +1,6 @@
 name: Publish to Pub.dev
 
-on: [push,pull_request]
+on: push
 
 jobs:
   publishing:
