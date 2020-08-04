@@ -1,6 +1,5 @@
-//library custom_radio_grouped_button;
-import 'package:custom_radio_grouped_button/CustomButtons/CustomListViewSpacing.dart';
 import 'package:flutter/material.dart';
+import '../custom_radio_grouped_button.dart';
 
 class CustomRadioButton extends StatefulWidget {
   CustomRadioButton({
@@ -33,6 +32,7 @@ class CustomRadioButton extends StatefulWidget {
 
   final bool horizontal;
 
+  ///Values of button
   final List buttonValues;
 
   final double height;
@@ -88,17 +88,18 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
   void initState() {
     super.initState();
     if (widget.defaultSelected != null) {
-      if (widget.buttonValues.contains(widget.defaultSelected))
-        _currentSelectedLabel = widget.defaultSelected;
-      else
+      if (widget.buttonValues.contains(widget.defaultSelected)) {
+        int index = widget.buttonValues.indexOf(widget.defaultSelected);
+        _currentSelectedLabel = widget.buttonLables[index];
+      } else
         throw Exception("Default Value not found in button value list");
     }
   }
 
   List<Widget> _buildButtonsColumn() {
-    List<Widget> buttons = [];
-    for (int index = 0; index < widget.buttonLables.length; index++) {
-      var button = Padding(
+    return widget.buttonValues.map((e) {
+      int index = widget.buttonValues.indexOf(e);
+      return Padding(
         padding: EdgeInsets.all(widget.padding),
         child: Card(
           color: _currentSelectedLabel == widget.buttonLables[index]
@@ -129,7 +130,7 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
                       borderRadius: BorderRadius.zero,
                     ),
               onPressed: () {
-                widget.radioButtonValue(widget.buttonValues[index]);
+                widget.radioButtonValue(e);
                 setState(() {
                   _currentSelectedLabel = widget.buttonLables[index];
                 });
@@ -150,15 +151,13 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
           ),
         ),
       );
-      buttons.add(button);
-    }
-    return buttons;
+    }).toList();
   }
 
   List<Widget> _buildButtonsRow() {
-    List<Widget> buttons = [];
-    for (int index = 0; index < widget.buttonLables.length; index++) {
-      var button = Card(
+    return widget.buttonValues.map((e) {
+      int index = widget.buttonValues.indexOf(e);
+      return Card(
         color: _currentSelectedLabel == widget.buttonLables[index]
             ? widget.selectedColor
             : widget.unSelectedColor,
@@ -189,7 +188,7 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
                     borderRadius: BorderRadius.zero,
                   ),
             onPressed: () {
-              widget.radioButtonValue(widget.buttonValues[index]);
+              widget.radioButtonValue(e);
               setState(() {
                 _currentSelectedLabel = widget.buttonLables[index];
               });
@@ -209,9 +208,7 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
           ),
         ),
       );
-      buttons.add(button);
-    }
-    return buttons;
+    }).toList();
   }
 
   @override
