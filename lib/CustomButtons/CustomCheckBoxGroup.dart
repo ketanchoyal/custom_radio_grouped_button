@@ -1,5 +1,4 @@
-//library custom_radio_grouped_button;
-import 'package:custom_radio_grouped_button/CustomButtons/CustomListViewSpacing.dart';
+import '../custom_radio_grouped_button.dart';
 import 'package:flutter/material.dart';
 
 class CustomCheckBoxGroup extends StatefulWidget {
@@ -33,6 +32,7 @@ class CustomCheckBoxGroup extends StatefulWidget {
 
   final bool horizontal;
 
+  ///Values of button
   final List buttonValuesList;
   final double fontSize;
 

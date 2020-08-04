@@ -64,6 +64,7 @@ class RadioButton extends StatelessWidget {
                           'hgfh',
                           'jhgiugx'
                         ],
+                        defaultSelected: "STUDENT",
                         radioButtonValue: (value) {
                           print(value);
                         },
@@ -96,10 +97,11 @@ class RadioButton extends StatelessWidget {
                           'Teacher',
                         ],
                         buttonValues: [
-                          "STUDENT",
-                          "PARENT",
-                          "TEACHER",
+                          1,
+                          2,
+                          3,
                         ],
+                        defaultSelected: 1,
                         radioButtonValue: (value) {
                           print(value);
                         },

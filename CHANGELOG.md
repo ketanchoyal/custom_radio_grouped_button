@@ -1,3 +1,7 @@
+## [1.0.4] - August 04, 2020
+
+Some Optimizations and resolved default selection bug in radio buttons
+
 ## [1.0.3] - August 03, 2020
 
 Features Added:
