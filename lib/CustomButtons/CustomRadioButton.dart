@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import '../custom_radio_grouped_button.dart';
 
+// ignore: must_be_immutable
 class CustomRadioButton extends StatefulWidget {
   CustomRadioButton({
     this.buttonLables,
     this.buttonValues,
-    this.fontSize = 15,
-    this.autoWidth = true,
+    this.buttonTextStyle = const ButtonTextStyle(),
+    this.autoWidth = false,
     this.radioButtonValue,
     this.unSelectedColor,
     this.padding = 3,
@@ -20,26 +21,32 @@ class CustomRadioButton extends StatefulWidget {
     this.elevation = 10,
     this.defaultSelected,
     this.customShape,
+    this.absoluteZeroSpacing = false,
     this.wrapAlignment = WrapAlignment.start,
   })  : assert(buttonLables.length == buttonValues.length,
             "Button values list and button lables list should have same number of eliments "),
         assert(unSelectedColor != null, "Unselected color cannot be null"),
         assert(buttonValues.toSet().length == buttonValues.length,
             "Multiple buttons with same value cannot exist"),
-        assert(buttonLables.toSet().length == buttonLables.length,
-            "Multiple buttons label wth same value cannot exist"),
-        assert(selectedColor != null, "Selected color cannpt be null");
+        // assert(buttonLables.toSet().length == buttonLables.length,
+        //     "Multiple buttons label wth same value cannot exist"),
+        assert(selectedColor != null, "Selected color cannot be null");
 
+  ///Orientation of the Button Group
   final bool horizontal;
 
   ///Values of button
   final List buttonValues;
 
+  ///This option will make sure that there is no spacing in between buttons
+  final bool absoluteZeroSpacing;
+
+  ///Default value is 35
   final double height;
-  final double padding;
+  double padding;
 
   ///Spacing between buttons
-  final double spacing;
+  double spacing;
 
   ///Default selected value
   final dynamic defaultSelected;
@@ -54,7 +61,8 @@ class CustomRadioButton extends StatefulWidget {
 
   final List<String> buttonLables;
 
-  final double fontSize;
+  ///Styling class for label
+  final ButtonTextStyle buttonTextStyle;
 
   final Function(dynamic) radioButtonValue;
 
@@ -102,6 +110,7 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
       return Padding(
         padding: EdgeInsets.all(widget.padding),
         child: Card(
+          margin: EdgeInsets.all(widget.absoluteZeroSpacing ? 0 : 4),
           color: _currentSelectedLabel == widget.buttonLables[index]
               ? widget.selectedColor
               : widget.unSelectedColor,
@@ -135,16 +144,17 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
                   _currentSelectedLabel = widget.buttonLables[index];
                 });
               },
-              child: Text(
-                widget.buttonLables[index],
-                textAlign: TextAlign.center,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                style: TextStyle(
-                  color: _currentSelectedLabel == widget.buttonLables[index]
-                      ? Colors.white
-                      : Theme.of(context).textTheme.bodyText1.color,
-                  fontSize: widget.fontSize,
+              child: Center(
+                child: Text(
+                  widget.buttonLables[index],
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                  style: widget.buttonTextStyle.textStyle.copyWith(
+                    color: _currentSelectedLabel == widget.buttonLables[index]
+                        ? widget.buttonTextStyle.selectedColor
+                        : widget.buttonTextStyle.unSelectedColor,
+                  ),
                 ),
               ),
             ),
@@ -158,6 +168,7 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
     return widget.buttonValues.map((e) {
       int index = widget.buttonValues.indexOf(e);
       return Card(
+        margin: EdgeInsets.all(widget.absoluteZeroSpacing ? 0 : 4),
         color: _currentSelectedLabel == widget.buttonLables[index]
             ? widget.selectedColor
             : widget.unSelectedColor,
@@ -193,16 +204,17 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
                 _currentSelectedLabel = widget.buttonLables[index];
               });
             },
-            child: Text(
-              widget.buttonLables[index],
-              textAlign: TextAlign.center,
-              overflow: TextOverflow.ellipsis,
-              maxLines: 1,
-              style: TextStyle(
-                color: _currentSelectedLabel == widget.buttonLables[index]
-                    ? Colors.white
-                    : Theme.of(context).textTheme.bodyText1.color,
-                fontSize: widget.fontSize,
+            child: Center(
+              child: Text(
+                widget.buttonLables[index],
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                style: widget.buttonTextStyle.textStyle.copyWith(
+                  color: _currentSelectedLabel == widget.buttonLables[index]
+                      ? widget.buttonTextStyle.selectedColor
+                      : widget.buttonTextStyle.unSelectedColor,
+                ),
               ),
             ),
           ),
@@ -213,6 +225,10 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.absoluteZeroSpacing) {
+      widget.spacing = 0;
+      widget.padding = 0;
+    }
     return _buildRadioButtons();
   }
 

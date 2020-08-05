@@ -1,3 +1,12 @@
+## [1.0.5] - August 05, 2020
+- default value of autoWidth is now set to false
+- Same Lable value is possible now Fix #22
+- FontStyle can be applied now Fix #22
+- a property 'absoluteZeroSpacing' is introduced to make sure that there is no spacing in between buttons if required
+
+    #### Some Breaking Changes:
+  - fontSize is no longer avaliable instead ButtonTextStye class is introduced
+
 ## [1.0.4] - August 04, 2020
 
 Some Optimizations and resolved default selection bug in radio buttons

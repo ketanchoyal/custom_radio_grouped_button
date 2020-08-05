@@ -14,7 +14,7 @@ class CustomListViewSpacing extends StatelessWidget {
       scrollDirection: scrollDirection,
       children: children
           .map((c) => Container(
-                padding: EdgeInsets.only(bottom: spacing),
+                padding: EdgeInsets.all(spacing),
                 child: c,
               ))
           .toList(),

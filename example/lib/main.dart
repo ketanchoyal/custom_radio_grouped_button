@@ -161,16 +161,22 @@ class GroupedButton extends StatelessWidget {
                       height: 10,
                     ),
                     CustomCheckBoxGroup(
-                      fontSize: 18,
+                      buttonTextStyle: ButtonTextStyle(
+                        selectedColor: Colors.red,
+                        unSelectedColor: Colors.orange,
+                        textStyle: TextStyle(
+                          fontSize: 16,
+                        ),
+                      ),
                       unSelectedColor: Theme.of(context).canvasColor,
                       buttonLables: [
-                        "Monday",
-                        "Tuesday",
-                        "Wednesday",
-                        "Thursday",
-                        "Friday",
-                        "Saturday",
-                        "Sunday",
+                        "M",
+                        "T",
+                        "W",
+                        "T",
+                        "F",
+                        "S",
+                        "S",
                       ],
                       buttonValuesList: [
                         "Monday",
@@ -184,13 +190,14 @@ class GroupedButton extends StatelessWidget {
                       checkBoxButtonValues: (values) {
                         print(values);
                       },
+                      spacing: 0,
                       defaultSelected: "Monday",
                       horizontal: false,
                       enableButtonWrap: false,
-                      width: 120,
-                      // hight: 50,
+                      width: 40,
+                      absoluteZeroSpacing: false,
                       selectedColor: Theme.of(context).accentColor,
-                      padding: 5,
+                      padding: 10,
                       // enableShape: true,
                     ),
                   ],
@@ -208,7 +215,13 @@ class GroupedButton extends StatelessWidget {
                       height: 10,
                     ),
                     CustomCheckBoxGroup(
-                      fontSize: 18,
+                      buttonTextStyle: ButtonTextStyle(
+                        selectedColor: Colors.white,
+                        unSelectedColor: Colors.black,
+                        textStyle: TextStyle(
+                          fontSize: 16,
+                        ),
+                      ),
                       autoWidth: false,
                       enableButtonWrap: true,
                       wrapAlignment: WrapAlignment.center,
