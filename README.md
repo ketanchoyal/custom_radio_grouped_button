@@ -21,42 +21,72 @@ Add the following to your `pubspec.yaml` file:
 # Creating Radio Button
 
     CustomRadioButton(
-    buttonColor: Theme.of(context).canvasColor,
-    buttonLables: [
-       "Student",
-       "Parent/Teacher",
+      elevation: 0,
+      absoluteZeroSpacing: true,
+      unSelectedColor: Theme.of(context).canvasColor,
+      buttonLables: [
+        'Student',
+        'Parent',
+        'Teacher',
       ],
-    buttonValues: [
-       "STUDENT",
-       "TEACHER",
+      buttonValues: [
+        "STUDENT",
+        "PARENT",
+        "TEACHER",
       ],
-    radioButtonValue: (value) => print(value),
-    selectedColor: Theme.of(context).accentColor,
-    );
+      buttonTextStyle: ButtonTextStyle(
+          selectedColor: Colors.white,
+          unSelectedColor: Colors.black,
+          textStyle: TextStyle(fontSize: 16)),
+      radioButtonValue: (value) {
+        print(value);
+      },
+      selectedColor: Theme.of(context).accentColor,
+    ),
 
 # Creating Grouped Button
 
+
     CustomCheckBoxGroup(
-    buttonColor: Theme.of(context).canvasColor,
-    buttonLables: [
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-    ],
-    buttonValuesList: [
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-    ],
-    checkBoxButtonValues: (values) => print(values),
-    defaultSelected: "Monday",
-    horizontal: true,
-    width: 120,
-    selectedColor: Theme.o.accentColor,
-    padding: 5,
+      buttonTextStyle: ButtonTextStyle(
+        selectedColor: Colors.red,
+        unSelectedColor: Colors.orange,
+        textStyle: TextStyle(
+          fontSize: 16,
+        ),
+      ),
+      unSelectedColor: Theme.of(context).canvasColor,
+      buttonLables: [
+        "M",
+        "T",
+        "W",
+        "T",
+        "F",
+        "S",
+        "S",
+      ],
+      buttonValuesList: [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+      ],
+      checkBoxButtonValues: (values) {
+        print(values);
+      },
+      spacing: 0,
+      defaultSelected: "Monday",
+      horizontal: false,
+      enableButtonWrap: false,
+      width: 40,
+      absoluteZeroSpacing: false,
+      selectedColor: Theme.of(context).accentColor,
+      padding: 10, 
     );
+
 
 ## Screenshots
 
