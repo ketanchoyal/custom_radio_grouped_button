@@ -79,7 +79,7 @@ class CustomCheckBoxGroup extends StatefulWidget {
   final WrapAlignment wrapAlignment;
 
   ///Default Selected button
-  final dynamic defaultSelected;
+  final List<dynamic> defaultSelected;
 
   ///Unselected Color of the button
   final Color unSelectedColor;
@@ -99,12 +99,11 @@ class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
   @override
   void initState() {
     super.initState();
-    if (widget.defaultSelected != null) {
-      if (widget.buttonValuesList.contains(widget.defaultSelected))
-        selectedLables.add(widget.defaultSelected);
-      else
-        throw Exception("Default Value not found in button value list");
-    }
+    widget.defaultSelected?.where((e) {
+      return widget.buttonValuesList.contains(e);
+    })?.forEach((e) {
+      selectedLables.add(e);
+    });
   }
 
   List<Widget> _buildButtonsColumn() {
