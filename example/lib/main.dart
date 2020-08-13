@@ -1,6 +1,7 @@
 import 'package:custom_radio_grouped_button/custom_radio_grouped_button.dart';
-import 'package:example/RadioButtonPage.dart';
 import 'package:flutter/material.dart';
+
+import './RadioButtonPage.dart';
 
 void main() => runApp(MyApp());
 
@@ -80,7 +81,7 @@ class GroupedButton extends StatelessWidget {
                         checkBoxButtonValues: (values) {
                           print(values);
                         },
-                        defaultSelected: "Monday",
+                        defaultSelected: ["Monday"],
                         horizontal: true,
                         width: 120,
                         // hight: 50,
@@ -122,7 +123,7 @@ class GroupedButton extends StatelessWidget {
                         checkBoxButtonValues: (values) {
                           print(values);
                         },
-                        defaultSelected: "Sunday",
+                        defaultSelected: ["Sunday"],
                         horizontal: true,
                         width: 120,
                         // hight: 50,
@@ -191,7 +192,7 @@ class GroupedButton extends StatelessWidget {
                         print(values);
                       },
                       spacing: 0,
-                      defaultSelected: "Monday",
+                      defaultSelected: ["Monday"],
                       horizontal: false,
                       enableButtonWrap: false,
                       width: 40,
@@ -247,7 +248,7 @@ class GroupedButton extends StatelessWidget {
                       checkBoxButtonValues: (values) {
                         print(values);
                       },
-                      defaultSelected: "Sunday",
+                      defaultSelected: ["Sunday"],
                       horizontal: false,
                       width: 120,
                       // hight: 50,
