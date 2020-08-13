@@ -1,3 +1,8 @@
+## [1.0.6] - August 13, 2020
+- Multiple default values can be added now
+    #### Breaking Change Alert
+     - default value is now of list type for checked box(Fix #24)
+
 ## [1.0.5] - August 05, 2020
 - default value of autoWidth is now set to false
 - Same Lable value is possible now Fix #22
