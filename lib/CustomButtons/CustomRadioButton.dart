@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../custom_radio_grouped_button.dart';
 
 // ignore: must_be_immutable
-class CustomRadioButton extends StatefulWidget {
+class CustomRadioButton<T> extends StatefulWidget {
   CustomRadioButton({
     this.buttonLables,
     this.buttonValues,
@@ -36,7 +36,7 @@ class CustomRadioButton extends StatefulWidget {
   final bool horizontal;
 
   ///Values of button
-  final List buttonValues;
+  final List<T> buttonValues;
 
   ///This option will make sure that there is no spacing in between buttons
   final bool absoluteZeroSpacing;
@@ -49,7 +49,7 @@ class CustomRadioButton extends StatefulWidget {
   double spacing;
 
   ///Default selected value
-  final dynamic defaultSelected;
+  final T defaultSelected;
 
   ///Only applied when in vertical mode
   ///This will use minimum space required
@@ -64,7 +64,7 @@ class CustomRadioButton extends StatefulWidget {
   ///Styling class for label
   final ButtonTextStyle buttonTextStyle;
 
-  final Function(dynamic) radioButtonValue;
+  final void Function(T) radioButtonValue;
 
   ///Unselected Color of the button
   final Color unSelectedColor;
