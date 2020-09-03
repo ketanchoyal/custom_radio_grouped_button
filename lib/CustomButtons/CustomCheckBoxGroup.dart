@@ -5,7 +5,7 @@ import 'package:custom_radio_grouped_button/CustomButtons/ButtonTextStyle.dart';
 import '../custom_radio_grouped_button.dart';
 
 // ignore: must_be_immutable
-class CustomCheckBoxGroup extends StatefulWidget {
+class CustomCheckBoxGroup<T> extends StatefulWidget {
   CustomCheckBoxGroup({
     Key key,
     this.horizontal = false,
@@ -43,7 +43,7 @@ class CustomCheckBoxGroup extends StatefulWidget {
   final bool absoluteZeroSpacing;
 
   ///Values of button
-  final List buttonValuesList;
+  final List<T> buttonValuesList;
 
   ///Styling class for label
   final ButtonTextStyle buttonTextStyle;
@@ -70,7 +70,7 @@ class CustomCheckBoxGroup extends StatefulWidget {
 
   final List<String> buttonLables;
 
-  final Function(List<dynamic>) checkBoxButtonValues;
+  final void Function(List<T>) checkBoxButtonValues;
 
   ///Selected Color of button
   final Color selectedColor;
@@ -79,7 +79,7 @@ class CustomCheckBoxGroup extends StatefulWidget {
   final WrapAlignment wrapAlignment;
 
   ///Default Selected button
-  final dynamic defaultSelected;
+  final T defaultSelected;
 
   ///Unselected Color of the button
   final Color unSelectedColor;
