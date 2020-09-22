@@ -21,9 +21,11 @@ class CustomCheckBoxGroup<T> extends StatefulWidget {
     this.buttonLables,
     this.checkBoxButtonValues,
     this.selectedColor,
+    this.selectedBorderColor,
     this.wrapAlignment = WrapAlignment.start,
     this.defaultSelected,
     this.unSelectedColor,
+    this.unSelectedBorderColor,
     this.customShape,
     this.absoluteZeroSpacing = false,
     this.enableButtonWrap = false,
@@ -75,6 +77,9 @@ class CustomCheckBoxGroup<T> extends StatefulWidget {
   ///Selected Color of button
   final Color selectedColor;
 
+  ///Selected Color of button border
+  final Color selectedBorderColor;
+
   ///alignment for button when [enableButtonWrap] is true
   final WrapAlignment wrapAlignment;
 
@@ -83,6 +88,9 @@ class CustomCheckBoxGroup<T> extends StatefulWidget {
 
   ///Unselected Color of the button
   final Color unSelectedColor;
+
+  ///Unselected Color of the button border
+  final Color unSelectedBorderColor;
 
   /// A custom Shape can be applied (will work only if [enableShape] is true)
   final ShapeBorder customShape;
@@ -95,6 +103,8 @@ class CustomCheckBoxGroup<T> extends StatefulWidget {
 
 class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
   List<dynamic> selectedLables = [];
+
+  Color borderColor(e) => (selectedLables.contains(e) ? widget.selectedBorderColor : widget.unSelectedBorderColor) ?? Theme.of(context).primaryColor;
 
   @override
   void initState() {
@@ -132,13 +142,13 @@ class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
                   ? widget.customShape == null
                       ? OutlineInputBorder(
                           borderSide: BorderSide(
-                              color: Theme.of(context).primaryColor, width: 1),
+                              color: borderColor(e), width: 1),
                           borderRadius: BorderRadius.all(Radius.circular(20)),
                         )
                       : widget.customShape
                   : OutlineInputBorder(
                       borderSide: BorderSide(
-                          color: Theme.of(context).primaryColor, width: 1),
+                          color: borderColor(e), width: 1),
                       borderRadius: BorderRadius.zero,
                     ),
               onPressed: () {
@@ -195,13 +205,13 @@ class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
                 ? widget.customShape == null
                     ? OutlineInputBorder(
                         borderSide: BorderSide(
-                            color: Theme.of(context).primaryColor, width: 1),
+                            color: borderColor(e), width: 1),
                         borderRadius: BorderRadius.all(Radius.circular(20)),
                       )
                     : widget.customShape
                 : OutlineInputBorder(
                     borderSide: BorderSide(
-                        color: Theme.of(context).primaryColor, width: 1),
+                        color: borderColor(e), width: 1),
                     borderRadius: BorderRadius.zero,
                   ),
             onPressed: () {
