@@ -1,3 +1,6 @@
+## [1.0.6+1] - 02 Oct 2020
+- Add feature for user to change border colors of RadioButtons (PR by @patuoynageek)
+
 ## [1.0.6] - August 13, 2020
 - Multiple default values can be added now
     #### Breaking Change Alert

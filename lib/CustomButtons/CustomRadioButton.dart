@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../custom_radio_grouped_button.dart';
 
 // ignore: must_be_immutable
-class CustomRadioButton extends StatefulWidget {
+class CustomRadioButton<T> extends StatefulWidget {
   CustomRadioButton({
     this.buttonLables,
     this.buttonValues,
@@ -10,9 +10,11 @@ class CustomRadioButton extends StatefulWidget {
     this.autoWidth = false,
     this.radioButtonValue,
     this.unSelectedColor,
+    this.unSelectedBorderColor,
     this.padding = 3,
     this.spacing = 0.0,
     this.selectedColor,
+    this.selectedBorderColor,
     this.height = 35,
     this.width = 100,
     this.enableButtonWrap = false,
@@ -36,7 +38,7 @@ class CustomRadioButton extends StatefulWidget {
   final bool horizontal;
 
   ///Values of button
-  final List buttonValues;
+  final List<T> buttonValues;
 
   ///This option will make sure that there is no spacing in between buttons
   final bool absoluteZeroSpacing;
@@ -49,7 +51,7 @@ class CustomRadioButton extends StatefulWidget {
   double spacing;
 
   ///Default selected value
-  final dynamic defaultSelected;
+  final T defaultSelected;
 
   ///Only applied when in vertical mode
   ///This will use minimum space required
@@ -64,13 +66,19 @@ class CustomRadioButton extends StatefulWidget {
   ///Styling class for label
   final ButtonTextStyle buttonTextStyle;
 
-  final Function(dynamic) radioButtonValue;
+  final void Function(T) radioButtonValue;
 
   ///Unselected Color of the button
   final Color unSelectedColor;
 
   ///Selected Color of button
   final Color selectedColor;
+
+  ///Unselected Color of the button border
+  final Color unSelectedBorderColor;
+
+  ///Selected Color of button border
+  final Color selectedBorderColor;
 
   /// A custom Shape can be applied (will work only if [enableShape] is true)
   final ShapeBorder customShape;
@@ -91,6 +99,8 @@ class CustomRadioButton extends StatefulWidget {
 
 class _CustomRadioButtonState extends State<CustomRadioButton> {
   String _currentSelectedLabel;
+
+  Color borderColor(index) => (_currentSelectedLabel == widget.buttonLables[index] ? widget.selectedBorderColor : widget.unSelectedBorderColor) ?? Theme.of(context).primaryColor;
 
   @override
   void initState() {
@@ -129,13 +139,13 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
                   ? widget.customShape == null
                       ? OutlineInputBorder(
                           borderSide: BorderSide(
-                              color: Theme.of(context).primaryColor, width: 1),
+                              color: borderColor(index), width: 1),
                           borderRadius: BorderRadius.all(Radius.circular(20)),
                         )
                       : widget.customShape
                   : OutlineInputBorder(
                       borderSide: BorderSide(
-                          color: Theme.of(context).primaryColor, width: 1),
+                          color: borderColor(index), width: 1),
                       borderRadius: BorderRadius.zero,
                     ),
               onPressed: () {
@@ -189,13 +199,13 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
                 ? widget.customShape == null
                     ? OutlineInputBorder(
                         borderSide: BorderSide(
-                            color: Theme.of(context).primaryColor, width: 1),
+                            color: borderColor(index), width: 1),
                         borderRadius: BorderRadius.all(Radius.circular(20)),
                       )
                     : widget.customShape
                 : OutlineInputBorder(
                     borderSide: BorderSide(
-                        color: Theme.of(context).primaryColor, width: 1),
+                        color: borderColor(index), width: 1),
                     borderRadius: BorderRadius.zero,
                   ),
             onPressed: () {
