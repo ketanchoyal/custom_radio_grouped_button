@@ -1,3 +1,6 @@
+## [1.0.5+1] - 02 Oct 2020
+- Add feature for user to change border colors of RadioButtons (PR by @patuoynageek)
+
 ## [1.0.5] - August 05, 2020
 - default value of autoWidth is now set to false
 - Same Lable value is possible now Fix #22
