@@ -10,9 +10,11 @@ class CustomRadioButton<T> extends StatefulWidget {
     this.autoWidth = false,
     this.radioButtonValue,
     this.unSelectedColor,
+    this.unSelectedBorderColor,
     this.padding = 3,
     this.spacing = 0.0,
     this.selectedColor,
+    this.selectedBorderColor,
     this.height = 35,
     this.width = 100,
     this.enableButtonWrap = false,
@@ -72,6 +74,12 @@ class CustomRadioButton<T> extends StatefulWidget {
   ///Selected Color of button
   final Color selectedColor;
 
+  ///Unselected Color of the button border
+  final Color unSelectedBorderColor;
+
+  ///Selected Color of button border
+  final Color selectedBorderColor;
+
   /// A custom Shape can be applied (will work only if [enableShape] is true)
   final ShapeBorder customShape;
 
@@ -91,6 +99,8 @@ class CustomRadioButton<T> extends StatefulWidget {
 
 class _CustomRadioButtonState extends State<CustomRadioButton> {
   String _currentSelectedLabel;
+
+  Color borderColor(index) => (_currentSelectedLabel == widget.buttonLables[index] ? widget.selectedBorderColor : widget.unSelectedBorderColor) ?? Theme.of(context).primaryColor;
 
   @override
   void initState() {
@@ -129,13 +139,13 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
                   ? widget.customShape == null
                       ? OutlineInputBorder(
                           borderSide: BorderSide(
-                              color: Theme.of(context).primaryColor, width: 1),
+                              color: borderColor(index), width: 1),
                           borderRadius: BorderRadius.all(Radius.circular(20)),
                         )
                       : widget.customShape
                   : OutlineInputBorder(
                       borderSide: BorderSide(
-                          color: Theme.of(context).primaryColor, width: 1),
+                          color: borderColor(index), width: 1),
                       borderRadius: BorderRadius.zero,
                     ),
               onPressed: () {
@@ -189,13 +199,13 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
                 ? widget.customShape == null
                     ? OutlineInputBorder(
                         borderSide: BorderSide(
-                            color: Theme.of(context).primaryColor, width: 1),
+                            color: borderColor(index), width: 1),
                         borderRadius: BorderRadius.all(Radius.circular(20)),
                       )
                     : widget.customShape
                 : OutlineInputBorder(
                     borderSide: BorderSide(
-                        color: Theme.of(context).primaryColor, width: 1),
+                        color: borderColor(index), width: 1),
                     borderRadius: BorderRadius.zero,
                   ),
             onPressed: () {
