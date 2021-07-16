@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../custom_radio_grouped_button.dart';
 
 // ignore: must_be_immutable
@@ -21,9 +22,12 @@ class CustomRadioButton<T> extends StatefulWidget {
     this.horizontal = false,
     this.enableShape = false,
     this.elevation = 10,
+    this.shapeRadius = 50,
+    this.radius = 20,
     this.defaultSelected,
     this.customShape,
     this.absoluteZeroSpacing = false,
+    this.margin,
     this.wrapAlignment = WrapAlignment.start,
   })  : assert(buttonLables.length == buttonValues.length,
             "Button values list and button lables list should have same number of eliments "),
@@ -42,6 +46,9 @@ class CustomRadioButton<T> extends StatefulWidget {
 
   ///This option will make sure that there is no spacing in between buttons
   final bool absoluteZeroSpacing;
+
+  ///Margins around card
+  final EdgeInsetsGeometry margin;
 
   ///Default value is 35
   final double height;
@@ -94,6 +101,12 @@ class CustomRadioButton<T> extends StatefulWidget {
   final bool enableShape;
   final double elevation;
 
+  /// Radius for non-shape radio button
+  final double radius;
+
+  /// Radius for shape radio button
+  final double shapeRadius;
+
   _CustomRadioButtonState createState() => _CustomRadioButtonState();
 }
 
@@ -120,7 +133,7 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
       return Padding(
         padding: EdgeInsets.all(widget.padding),
         child: Card(
-          margin: EdgeInsets.all(widget.absoluteZeroSpacing ? 0 : 4),
+          margin: widget.margin ?? EdgeInsets.all(widget.absoluteZeroSpacing ? 0 : 4),
           color: _currentSelectedLabel == widget.buttonLables[index]
               ? widget.selectedColor
               : widget.unSelectedColor,
@@ -128,7 +141,7 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
           shape: widget.enableShape
               ? widget.customShape == null
                   ? RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(50)),
+                      borderRadius: BorderRadius.all(Radius.circular(widget.shapeRadius)),
                     )
                   : widget.customShape
               : null,
@@ -140,7 +153,7 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
                       ? OutlineInputBorder(
                           borderSide: BorderSide(
                               color: borderColor(index), width: 1),
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          borderRadius: BorderRadius.all(Radius.circular(widget.radius)),
                         )
                       : widget.customShape
                   : OutlineInputBorder(
@@ -178,7 +191,7 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
     return widget.buttonValues.map((e) {
       int index = widget.buttonValues.indexOf(e);
       return Card(
-        margin: EdgeInsets.all(widget.absoluteZeroSpacing ? 0 : 4),
+        margin: widget.margin ?? EdgeInsets.all(widget.absoluteZeroSpacing ? 0 : 4),
         color: _currentSelectedLabel == widget.buttonLables[index]
             ? widget.selectedColor
             : widget.unSelectedColor,
@@ -186,7 +199,7 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
         shape: widget.enableShape
             ? widget.customShape == null
                 ? RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(50)),
+                    borderRadius: BorderRadius.all(Radius.circular(widget.shapeRadius)),
                   )
                 : widget.customShape
             : null,
@@ -200,7 +213,7 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
                     ? OutlineInputBorder(
                         borderSide: BorderSide(
                             color: borderColor(index), width: 1),
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        borderRadius: BorderRadius.all(Radius.circular(widget.radius)),
                       )
                     : widget.customShape
                 : OutlineInputBorder(
