@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../custom_radio_grouped_button.dart';
 
-// ignore: must_be_immutable
 class CustomRadioButton<T> extends StatefulWidget {
   CustomRadioButton({
     required this.buttonLables,
@@ -12,8 +11,8 @@ class CustomRadioButton<T> extends StatefulWidget {
     this.radioButtonValue,
     required this.unSelectedColor,
     this.unSelectedBorderColor,
-    this.padding = 3,
-    this.spacing = 0.0,
+    double padding = 3,
+    double spacing = 0.0,
     required this.selectedColor,
     this.selectedBorderColor,
     this.height = 35,
@@ -36,7 +35,15 @@ class CustomRadioButton<T> extends StatefulWidget {
             "Multiple buttons with same value cannot exist"),
         // assert(buttonLables.toSet().length == buttonLables.length,
         //     "Multiple buttons label wth same value cannot exist"),
-        assert(selectedColor != null, "Selected color cannot be null");
+        assert(selectedColor != null, "Selected color cannot be null") {
+    if (absoluteZeroSpacing) {
+      this.padding = 0;
+      this.spacing = 0;
+    } else {
+      this.padding = padding;
+      this.spacing = spacing;
+    }
+  }
 
   ///Orientation of the Button Group
   final bool horizontal;
@@ -52,10 +59,10 @@ class CustomRadioButton<T> extends StatefulWidget {
 
   ///Default value is 35
   final double height;
-  double padding;
+  late final double padding;
 
   ///Spacing between buttons
-  double spacing;
+  late final double spacing;
 
   ///Default selected value
   final T? defaultSelected;
@@ -113,7 +120,11 @@ class CustomRadioButton<T> extends StatefulWidget {
 class _CustomRadioButtonState extends State<CustomRadioButton> {
   String? _currentSelectedLabel;
 
-  Color borderColor(index) => (_currentSelectedLabel == widget.buttonLables[index] ? widget.selectedBorderColor : widget.unSelectedBorderColor) ?? Theme.of(context).primaryColor;
+  Color borderColor(index) =>
+      (_currentSelectedLabel == widget.buttonLables[index]
+          ? widget.selectedBorderColor
+          : widget.unSelectedBorderColor) ??
+      Theme.of(context).primaryColor;
 
   @override
   void initState() {
@@ -133,7 +144,8 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
       return Padding(
         padding: EdgeInsets.all(widget.padding),
         child: Card(
-          margin: widget.margin ?? EdgeInsets.all(widget.absoluteZeroSpacing ? 0 : 4),
+          margin: widget.margin ??
+              EdgeInsets.all(widget.absoluteZeroSpacing ? 0 : 4),
           color: _currentSelectedLabel == widget.buttonLables[index]
               ? widget.selectedColor
               : widget.unSelectedColor,
@@ -141,7 +153,8 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
           shape: widget.enableShape
               ? widget.customShape == null
                   ? RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(widget.shapeRadius)),
+                      borderRadius:
+                          BorderRadius.all(Radius.circular(widget.shapeRadius)),
                     )
                   : widget.customShape
               : null,
@@ -151,14 +164,15 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
               shape: widget.enableShape
                   ? widget.customShape == null
                       ? OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: borderColor(index), width: 1),
-                          borderRadius: BorderRadius.all(Radius.circular(widget.radius)),
+                          borderSide:
+                              BorderSide(color: borderColor(index), width: 1),
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(widget.radius)),
                         )
                       : widget.customShape
                   : OutlineInputBorder(
-                      borderSide: BorderSide(
-                          color: borderColor(index), width: 1),
+                      borderSide:
+                          BorderSide(color: borderColor(index), width: 1),
                       borderRadius: BorderRadius.zero,
                     ),
               onPressed: () {
@@ -191,7 +205,8 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
     return widget.buttonValues.map((e) {
       int index = widget.buttonValues.indexOf(e);
       return Card(
-        margin: widget.margin ?? EdgeInsets.all(widget.absoluteZeroSpacing ? 0 : 4),
+        margin:
+            widget.margin ?? EdgeInsets.all(widget.absoluteZeroSpacing ? 0 : 4),
         color: _currentSelectedLabel == widget.buttonLables[index]
             ? widget.selectedColor
             : widget.unSelectedColor,
@@ -199,7 +214,8 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
         shape: widget.enableShape
             ? widget.customShape == null
                 ? RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(widget.shapeRadius)),
+                    borderRadius:
+                        BorderRadius.all(Radius.circular(widget.shapeRadius)),
                   )
                 : widget.customShape
             : null,
@@ -211,14 +227,14 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
             shape: widget.enableShape
                 ? widget.customShape == null
                     ? OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: borderColor(index), width: 1),
-                        borderRadius: BorderRadius.all(Radius.circular(widget.radius)),
+                        borderSide:
+                            BorderSide(color: borderColor(index), width: 1),
+                        borderRadius:
+                            BorderRadius.all(Radius.circular(widget.radius)),
                       )
                     : widget.customShape
                 : OutlineInputBorder(
-                    borderSide: BorderSide(
-                        color: borderColor(index), width: 1),
+                    borderSide: BorderSide(color: borderColor(index), width: 1),
                     borderRadius: BorderRadius.zero,
                   ),
             onPressed: () {
@@ -248,10 +264,6 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.absoluteZeroSpacing) {
-      widget.spacing = 0;
-      widget.padding = 0;
-    }
     return _buildRadioButtons();
   }
 

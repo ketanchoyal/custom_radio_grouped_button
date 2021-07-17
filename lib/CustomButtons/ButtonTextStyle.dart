@@ -7,6 +7,8 @@ class ButtonTextStyle {
 
   ///Unselected color of Text
   final Color unSelectedColor;
+
+  /// Color in [TextStyle] will be ignored
   final TextStyle textStyle;
 
   const ButtonTextStyle({

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import '../custom_radio_grouped_button.dart';
 
-// ignore: must_be_immutable
 class CustomCheckBoxGroup<T> extends StatefulWidget {
   CustomCheckBoxGroup({
     Key? key,
@@ -11,8 +10,8 @@ class CustomCheckBoxGroup<T> extends StatefulWidget {
     required this.buttonValuesList,
     this.buttonTextStyle = const ButtonTextStyle(),
     this.height = 35,
-    this.padding = 3,
-    this.spacing = 0.0,
+    double padding = 3,
+    double spacing = 0.0,
     this.autoWidth = false,
     this.width = 100,
     this.enableShape = false,
@@ -38,7 +37,15 @@ class CustomCheckBoxGroup<T> extends StatefulWidget {
             "Multiple buttons with same value cannot exist"),
         // assert(buttonLables.toSet().length == buttonLables.length,
         //     "Multiple buttons label wth same value cannot exist"),
-        assert(selectedColor != null, "Selected color cannot be null");
+        assert(selectedColor != null, "Selected color cannot be null") {
+    if (absoluteZeroSpacing) {
+      this.padding = 0;
+      this.spacing = 0;
+    } else {
+      this.padding = padding;
+      this.spacing = spacing;
+    }
+  }
 
   ///Orientation of the Button Group
   final bool horizontal;
@@ -54,13 +61,13 @@ class CustomCheckBoxGroup<T> extends StatefulWidget {
 
   ///Default value is 35
   final double height;
-  double padding;
+  late final double padding;
 
   ///Margins around card
   final EdgeInsetsGeometry? margin;
 
   ///Spacing between buttons
-  double spacing;
+  late final double spacing;
 
   ///Only applied when in vertical mode
   ///This will use minimum space required
@@ -91,7 +98,6 @@ class CustomCheckBoxGroup<T> extends StatefulWidget {
   ///Default Selected button
   final T? defaultSelected;
 
-
   ///Unselected Color of the button
   final Color unSelectedColor;
 
@@ -116,7 +122,11 @@ class CustomCheckBoxGroup<T> extends StatefulWidget {
 class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
   List<dynamic> selectedLables = [];
 
-  Color borderColor(e) => (selectedLables.contains(e) ? widget.selectedBorderColor : widget.unSelectedBorderColor) ?? Theme.of(context).primaryColor;
+  Color borderColor(e) =>
+      (selectedLables.contains(e)
+          ? widget.selectedBorderColor
+          : widget.unSelectedBorderColor) ??
+      Theme.of(context).primaryColor;
 
   @override
   void initState() {
@@ -134,7 +144,8 @@ class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
       return Padding(
         padding: EdgeInsets.all(widget.padding),
         child: Card(
-          margin: widget.margin ?? EdgeInsets.all(widget.absoluteZeroSpacing ? 0 : 4),
+          margin: widget.margin ??
+              EdgeInsets.all(widget.absoluteZeroSpacing ? 0 : 4),
           color: selectedLables.contains(e)
               ? widget.selectedColor
               : widget.unSelectedColor,
@@ -142,7 +153,8 @@ class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
           shape: widget.enableShape
               ? widget.customShape == null
                   ? RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(widget.shapeRadius)),
+                      borderRadius:
+                          BorderRadius.all(Radius.circular(widget.shapeRadius)),
                     )
                   : widget.customShape
               : null,
@@ -152,14 +164,14 @@ class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
               shape: widget.enableShape
                   ? widget.customShape == null
                       ? OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: borderColor(e), width: 1),
-                          borderRadius: BorderRadius.all(Radius.circular(widget.radius)),
+                          borderSide:
+                              BorderSide(color: borderColor(e), width: 1),
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(widget.radius)),
                         )
                       : widget.customShape
                   : OutlineInputBorder(
-                      borderSide: BorderSide(
-                          color: borderColor(e), width: 1),
+                      borderSide: BorderSide(color: borderColor(e), width: 1),
                       borderRadius: BorderRadius.zero,
                     ),
               onPressed: () {
@@ -195,7 +207,8 @@ class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
     return widget.buttonValuesList.map((e) {
       int index = widget.buttonValuesList.indexOf(e);
       return Card(
-        margin: widget.margin ?? EdgeInsets.all(widget.absoluteZeroSpacing ? 0 : 4),
+        margin:
+            widget.margin ?? EdgeInsets.all(widget.absoluteZeroSpacing ? 0 : 4),
         color: selectedLables.contains(e)
             ? widget.selectedColor
             : widget.unSelectedColor,
@@ -203,7 +216,8 @@ class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
         shape: widget.enableShape
             ? widget.customShape == null
                 ? RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(widget.shapeRadius)),
+                    borderRadius:
+                        BorderRadius.all(Radius.circular(widget.shapeRadius)),
                   )
                 : widget.customShape
             : null,
@@ -215,14 +229,13 @@ class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
             shape: widget.enableShape
                 ? widget.customShape == null
                     ? OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: borderColor(e), width: 1),
-                        borderRadius: BorderRadius.all(Radius.circular(widget.radius)),
+                        borderSide: BorderSide(color: borderColor(e), width: 1),
+                        borderRadius:
+                            BorderRadius.all(Radius.circular(widget.radius)),
                       )
                     : widget.customShape
                 : OutlineInputBorder(
-                    borderSide: BorderSide(
-                        color: borderColor(e), width: 1),
+                    borderSide: BorderSide(color: borderColor(e), width: 1),
                     borderRadius: BorderRadius.zero,
                   ),
             onPressed: () {
@@ -256,10 +269,6 @@ class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.absoluteZeroSpacing) {
-      widget.spacing = 0;
-      widget.padding = 0;
-    }
     return _buildCheckBoxButtons();
   }
 
