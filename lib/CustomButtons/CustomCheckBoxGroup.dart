@@ -6,9 +6,9 @@ import '../custom_radio_grouped_button.dart';
 // ignore: must_be_immutable
 class CustomCheckBoxGroup<T> extends StatefulWidget {
   CustomCheckBoxGroup({
-    Key key,
+    Key? key,
     this.horizontal = false,
-    this.buttonValuesList,
+    required this.buttonValuesList,
     this.buttonTextStyle = const ButtonTextStyle(),
     this.height = 35,
     this.padding = 3,
@@ -19,13 +19,13 @@ class CustomCheckBoxGroup<T> extends StatefulWidget {
     this.elevation = 0,
     this.shapeRadius = 50,
     this.radius = 20,
-    this.buttonLables,
+    required this.buttonLables,
     this.checkBoxButtonValues,
-    this.selectedColor,
+    required this.selectedColor,
     this.selectedBorderColor,
     this.wrapAlignment = WrapAlignment.start,
     this.defaultSelected,
-    this.unSelectedColor,
+    required this.unSelectedColor,
     this.unSelectedBorderColor,
     this.customShape,
     this.absoluteZeroSpacing = false,
@@ -57,7 +57,7 @@ class CustomCheckBoxGroup<T> extends StatefulWidget {
   double padding;
 
   ///Margins around card
-  final EdgeInsetsGeometry margin;
+  final EdgeInsetsGeometry? margin;
 
   ///Spacing between buttons
   double spacing;
@@ -77,29 +77,29 @@ class CustomCheckBoxGroup<T> extends StatefulWidget {
 
   final List<String> buttonLables;
 
-  final void Function(List<T>) checkBoxButtonValues;
+  final void Function(List<T>)? checkBoxButtonValues;
 
   ///Selected Color of button
   final Color selectedColor;
 
   ///Selected Color of button border
-  final Color selectedBorderColor;
+  final Color? selectedBorderColor;
 
   ///alignment for button when [enableButtonWrap] is true
   final WrapAlignment wrapAlignment;
 
   ///Default Selected button
-  final T defaultSelected;
+  final T? defaultSelected;
 
 
   ///Unselected Color of the button
   final Color unSelectedColor;
 
   ///Unselected Color of the button border
-  final Color unSelectedBorderColor;
+  final Color? unSelectedBorderColor;
 
   /// A custom Shape can be applied (will work only if [enableShape] is true)
-  final ShapeBorder customShape;
+  final ShapeBorder? customShape;
 
   /// This will enable button wrap (will work only if orientation is vertical)
   final bool enableButtonWrap;
@@ -169,7 +169,7 @@ class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
                   selectedLables.add(e);
                 }
                 setState(() {});
-                widget.checkBoxButtonValues(selectedLables);
+                widget.checkBoxButtonValues!(selectedLables);
               },
               child: Center(
                 child: Text(
@@ -232,7 +232,7 @@ class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
                 selectedLables.add(e);
               }
               setState(() {});
-              widget.checkBoxButtonValues(selectedLables);
+              widget.checkBoxButtonValues!(selectedLables);
             },
             child: Center(
               child: Text(

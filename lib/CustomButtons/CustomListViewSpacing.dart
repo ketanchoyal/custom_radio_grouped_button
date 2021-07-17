@@ -5,7 +5,7 @@ class CustomListViewSpacing extends StatelessWidget {
   final double spacing;
   final Axis scrollDirection;
   CustomListViewSpacing(
-      {@required this.children,
+      {required this.children,
       this.spacing = 0.0,
       this.scrollDirection = Axis.vertical});
 
