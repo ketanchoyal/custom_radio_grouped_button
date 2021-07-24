@@ -27,6 +27,7 @@ class CustomRadioButton<T> extends StatefulWidget {
     this.customShape,
     this.absoluteZeroSpacing = false,
     this.margin,
+    this.borderWidth = 1.0,
     this.wrapAlignment = WrapAlignment.start,
   })  : assert(buttonLables.length == buttonValues.length,
             "Button values list and button lables list should have same number of eliments "),
@@ -44,7 +45,9 @@ class CustomRadioButton<T> extends StatefulWidget {
       this.spacing = spacing;
     }
   }
-
+  ///Widget Border Width
+  final double borderWidth;
+  
   ///Orientation of the Button Group
   final bool horizontal;
 
@@ -165,14 +168,14 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
                   ? widget.customShape == null
                       ? OutlineInputBorder(
                           borderSide:
-                              BorderSide(color: borderColor(index), width: 1),
+                              BorderSide(color: borderColor(index), width: widget.borderWidth),
                           borderRadius:
                               BorderRadius.all(Radius.circular(widget.radius)),
                         )
                       : widget.customShape
                   : OutlineInputBorder(
                       borderSide:
-                          BorderSide(color: borderColor(index), width: 1),
+                          BorderSide(color: borderColor(index), width: widget.borderWidth),
                       borderRadius: BorderRadius.zero,
                     ),
               onPressed: () {
@@ -228,13 +231,13 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
                 ? widget.customShape == null
                     ? OutlineInputBorder(
                         borderSide:
-                            BorderSide(color: borderColor(index), width: 1),
+                            BorderSide(color: borderColor(index), width: widget.borderWidth),
                         borderRadius:
                             BorderRadius.all(Radius.circular(widget.radius)),
                       )
                     : widget.customShape
                 : OutlineInputBorder(
-                    borderSide: BorderSide(color: borderColor(index), width: 1),
+                    borderSide: BorderSide(color: borderColor(index), width: widget.borderWidth),
                     borderRadius: BorderRadius.zero,
                   ),
             onPressed: () {
