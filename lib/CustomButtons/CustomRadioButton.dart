@@ -28,6 +28,7 @@ class CustomRadioButton<T> extends StatefulWidget {
     this.absoluteZeroSpacing = false,
     this.margin,
     this.borderWidth = 1.0,
+    this.maxLines = 1,    
     this.wrapAlignment = WrapAlignment.start,
   })  : assert(buttonLables.length == buttonValues.length,
             "Button values list and button lables list should have same number of eliments "),
@@ -45,6 +46,9 @@ class CustomRadioButton<T> extends StatefulWidget {
       this.spacing = spacing;
     }
   }
+  ///Text maxLines
+  final int maxLines;
+  
   ///Widget Border Width
   final double borderWidth;
   
@@ -189,7 +193,7 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
                   widget.buttonLables[index],
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
+                  maxLines: widget.maxLines,
                   style: widget.buttonTextStyle.textStyle.copyWith(
                     color: _currentSelectedLabel == widget.buttonLables[index]
                         ? widget.buttonTextStyle.selectedColor
@@ -251,7 +255,7 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
                 widget.buttonLables[index],
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
-                maxLines: 1,
+                maxLines: widget.maxLines,
                 style: widget.buttonTextStyle.textStyle.copyWith(
                   color: _currentSelectedLabel == widget.buttonLables[index]
                       ? widget.buttonTextStyle.selectedColor
