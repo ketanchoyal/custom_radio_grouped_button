@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../custom_radio_grouped_button.dart';
 
 class CustomCheckBoxGroup<T> extends StatefulWidget {
+  /// [spacing] Spacing between buttons
   CustomCheckBoxGroup({
     Key? key,
     this.horizontal = false,
@@ -19,7 +20,7 @@ class CustomCheckBoxGroup<T> extends StatefulWidget {
     this.shapeRadius = 50,
     this.radius = 20,
     required this.buttonLables,
-    this.checkBoxButtonValues,
+    required this.checkBoxButtonValues,
     required this.selectedColor,
     this.selectedBorderColor,
     this.wrapAlignment = WrapAlignment.start,
@@ -84,7 +85,7 @@ class CustomCheckBoxGroup<T> extends StatefulWidget {
 
   final List<String> buttonLables;
 
-  final void Function(List<T>)? checkBoxButtonValues;
+  final void Function(List<T>) checkBoxButtonValues;
 
   ///Selected Color of button
   final Color selectedColor;
@@ -181,7 +182,7 @@ class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
                   selectedLables.add(e);
                 }
                 setState(() {});
-                widget.checkBoxButtonValues!(selectedLables);
+                widget.checkBoxButtonValues(selectedLables);
               },
               child: Center(
                 child: Text(
@@ -245,7 +246,7 @@ class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
                 selectedLables.add(e);
               }
               setState(() {});
-              widget.checkBoxButtonValues!(selectedLables);
+              widget.checkBoxButtonValues(selectedLables);
             },
             child: Center(
               child: Text(

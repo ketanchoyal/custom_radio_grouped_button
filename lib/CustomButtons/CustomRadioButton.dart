@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import '../custom_radio_grouped_button.dart';
 
 class CustomRadioButton<T> extends StatefulWidget {
+  /// [spacing] Spacing between buttons
   CustomRadioButton({
     required this.buttonLables,
     required this.buttonValues,
     this.buttonTextStyle = const ButtonTextStyle(),
     this.autoWidth = false,
-    this.radioButtonValue,
+    required this.radioButtonValue,
     required this.unSelectedColor,
     this.unSelectedBorderColor,
     double padding = 3,
@@ -80,7 +81,7 @@ class CustomRadioButton<T> extends StatefulWidget {
   ///Styling class for label
   final ButtonTextStyle buttonTextStyle;
 
-  final void Function(T)? radioButtonValue;
+  final void Function(T) radioButtonValue;
 
   ///Unselected Color of the button
   final Color unSelectedColor;
@@ -176,7 +177,7 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
                       borderRadius: BorderRadius.zero,
                     ),
               onPressed: () {
-                widget.radioButtonValue!(e);
+                widget.radioButtonValue(e);
                 setState(() {
                   _currentSelectedLabel = widget.buttonLables[index];
                 });
@@ -238,7 +239,7 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
                     borderRadius: BorderRadius.zero,
                   ),
             onPressed: () {
-              widget.radioButtonValue!(e);
+              widget.radioButtonValue(e);
               setState(() {
                 _currentSelectedLabel = widget.buttonLables[index];
               });
