@@ -1,3 +1,6 @@
+## [2.0.0] - 17 July 2021
+- Upgraded to null safety
+- Added feature for user to set card margins (PR #33)
 ## [1.0.6+1] - 02 Oct 2020
 - Add feature for user to change border colors of RadioButtons (PR by @patuoynageek)
 

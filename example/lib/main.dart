@@ -165,9 +165,8 @@ class GroupedButton extends StatelessWidget {
                       buttonTextStyle: ButtonTextStyle(
                         selectedColor: Colors.red,
                         unSelectedColor: Colors.orange,
-                        textStyle: TextStyle(
-                          fontSize: 16,
-                        ),
+                        textStyle:
+                            TextStyle(fontSize: 16, color: Colors.pinkAccent),
                       ),
                       unSelectedColor: Theme.of(context).canvasColor,
                       buttonLables: [
