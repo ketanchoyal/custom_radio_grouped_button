@@ -1,6 +1,8 @@
 library custom_radio_grouped_button;
 
-export 'CustomButtons/CustomCheckBoxGroup.dart';
-export 'CustomButtons/CustomRadioButton.dart';
-export 'CustomButtons/CustomListViewSpacing.dart';
-export 'CustomButtons/ButtonTextStyle.dart';
+import 'package:flutter/material.dart';
+
+part 'CustomButtons/CustomCheckBoxGroup.dart';
+part 'CustomButtons/CustomRadioButton.dart';
+part 'CustomButtons/CustomListViewSpacing.dart';
+part 'CustomButtons/ButtonTextStyle.dart';

@@ -105,7 +105,7 @@ class RadioButton extends StatelessWidget {
                         radioButtonValue: (value) {
                           print(value);
                         },
-                        selectedColor: Theme.of(context).accentColor,
+                        selectedColor: Theme.of(context).colorScheme.secondary,
                       ),
                     ],
                   ),
@@ -152,13 +152,14 @@ class RadioButton extends StatelessWidget {
                         "TEACHER",
                       ],
                       buttonTextStyle: ButtonTextStyle(
-                          selectedColor: Colors.white,
-                          unSelectedColor: Colors.black,
-                          textStyle: TextStyle(fontSize: 16)),
+                        selectedColor: Colors.white,
+                        unSelectedColor: Colors.black,
+                        textStyle: Theme.of(context).textTheme.bodyText1,
+                      ),
                       radioButtonValue: (value) {
                         print(value);
                       },
-                      selectedColor: Theme.of(context).accentColor,
+                      selectedColor: Theme.of(context).colorScheme.secondary,
                     ),
                   ],
                 ),
@@ -168,7 +169,7 @@ class RadioButton extends StatelessWidget {
                       height: 10,
                     ),
                     Text(
-                      'Shape Enabled',
+                      'Shape Enabled - Auto Width',
                       style: TextStyle(fontSize: 15),
                     ),
                     SizedBox(
@@ -179,20 +180,20 @@ class RadioButton extends StatelessWidget {
                       elevation: 0,
                       defaultSelected: "Sunday",
                       enableButtonWrap: true,
-                      width: 120,
-                      autoWidth: false,
+                      // width: 120,
+                      autoWidth: true,
                       unSelectedColor: Theme.of(context).canvasColor,
                       buttonLables: [
-                        "Monday",
+                        "Mon",
                         "Tuesday",
-                        "Wednesday",
+                        "Wednesdayyyy",
                         "Thursday",
                         "Friday",
                         "Saturday",
                         "Sunday",
                       ],
                       buttonValues: [
-                        "Monday",
+                        "Mon",
                         "Tuesday",
                         "Wednesday",
                         "Thursday",
@@ -203,7 +204,8 @@ class RadioButton extends StatelessWidget {
                       radioButtonValue: (value) {
                         print(value);
                       },
-                      selectedColor: Theme.of(context).accentColor,
+
+                      selectedColor: Theme.of(context).colorScheme.secondary,
                     ),
                   ],
                 ),
