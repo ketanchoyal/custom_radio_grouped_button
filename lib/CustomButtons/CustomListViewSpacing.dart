@@ -12,6 +12,7 @@ class CustomListViewSpacing extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       scrollDirection: scrollDirection,
+      shrinkWrap: true,
       children: children
           .map((c) => Container(
                 padding: EdgeInsets.all(spacing),
