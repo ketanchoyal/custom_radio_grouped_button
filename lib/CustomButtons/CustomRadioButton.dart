@@ -1,14 +1,14 @@
-import 'package:flutter/material.dart';
-
-import '../custom_radio_grouped_button.dart';
+part of '../custom_radio_grouped_button.dart';
 
 class CustomRadioButton<T> extends StatefulWidget {
+  /// [spacing] Spacing between buttons
   CustomRadioButton({
+    Key? key,
     required this.buttonLables,
     required this.buttonValues,
     this.buttonTextStyle = const ButtonTextStyle(),
     this.autoWidth = false,
-    this.radioButtonValue,
+    required this.radioButtonValue,
     required this.unSelectedColor,
     this.unSelectedBorderColor,
     double padding = 3,
@@ -30,12 +30,13 @@ class CustomRadioButton<T> extends StatefulWidget {
     this.wrapAlignment = WrapAlignment.start,
   })  : assert(buttonLables.length == buttonValues.length,
             "Button values list and button lables list should have same number of eliments "),
-        assert(unSelectedColor != null, "Unselected color cannot be null"),
+        // assert(unSelectedColor != null, "Unselected color cannot be null"),
         assert(buttonValues.toSet().length == buttonValues.length,
             "Multiple buttons with same value cannot exist"),
         // assert(buttonLables.toSet().length == buttonLables.length,
         //     "Multiple buttons label wth same value cannot exist"),
-        assert(selectedColor != null, "Selected color cannot be null") {
+        // assert(selectedColor != null, "Selected color cannot be null"),
+        super(key: key) {
     if (absoluteZeroSpacing) {
       this.padding = 0;
       this.spacing = 0;
@@ -80,7 +81,7 @@ class CustomRadioButton<T> extends StatefulWidget {
   ///Styling class for label
   final ButtonTextStyle buttonTextStyle;
 
-  final void Function(T)? radioButtonValue;
+  final void Function(T) radioButtonValue;
 
   ///Unselected Color of the button
   final Color unSelectedColor;
@@ -176,22 +177,20 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
                       borderRadius: BorderRadius.zero,
                     ),
               onPressed: () {
-                widget.radioButtonValue!(e);
+                widget.radioButtonValue(e);
                 setState(() {
                   _currentSelectedLabel = widget.buttonLables[index];
                 });
               },
-              child: Center(
-                child: Text(
-                  widget.buttonLables[index],
-                  textAlign: TextAlign.center,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                  style: widget.buttonTextStyle.textStyle.copyWith(
-                    color: _currentSelectedLabel == widget.buttonLables[index]
-                        ? widget.buttonTextStyle.selectedColor
-                        : widget.buttonTextStyle.unSelectedColor,
-                  ),
+              child: Text(
+                widget.buttonLables[index],
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                style: widget.buttonTextStyle.textStyle?.copyWith(
+                  color: _currentSelectedLabel == widget.buttonLables[index]
+                      ? widget.buttonTextStyle.selectedColor
+                      : widget.buttonTextStyle.unSelectedColor,
                 ),
               ),
             ),
@@ -222,7 +221,7 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
         child: Container(
           height: widget.height,
           width: widget.autoWidth ? null : widget.width,
-          constraints: BoxConstraints(maxWidth: 250),
+          constraints: widget.autoWidth ? null : BoxConstraints(maxWidth: 250),
           child: MaterialButton(
             shape: widget.enableShape
                 ? widget.customShape == null
@@ -238,22 +237,20 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
                     borderRadius: BorderRadius.zero,
                   ),
             onPressed: () {
-              widget.radioButtonValue!(e);
+              widget.radioButtonValue(e);
               setState(() {
                 _currentSelectedLabel = widget.buttonLables[index];
               });
             },
-            child: Center(
-              child: Text(
-                widget.buttonLables[index],
-                textAlign: TextAlign.center,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                style: widget.buttonTextStyle.textStyle.copyWith(
-                  color: _currentSelectedLabel == widget.buttonLables[index]
-                      ? widget.buttonTextStyle.selectedColor
-                      : widget.buttonTextStyle.unSelectedColor,
-                ),
+            child: Text(
+              widget.buttonLables[index],
+              textAlign: TextAlign.left,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+              style: widget.buttonTextStyle.textStyle?.copyWith(
+                color: _currentSelectedLabel == widget.buttonLables[index]
+                    ? widget.buttonTextStyle.selectedColor
+                    : widget.buttonTextStyle.unSelectedColor,
               ),
             ),
           ),

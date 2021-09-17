@@ -1,3 +1,5 @@
+## [2.1.0] - 17 Sep 2021
+- Fixed Auto Width not working in wrap mode
 ## [2.0.0] - 17 July 2021
 - Upgraded to null safety
 - Added feature for user to set card margins (PR #33)

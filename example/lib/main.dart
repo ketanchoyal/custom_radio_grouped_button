@@ -85,7 +85,7 @@ class GroupedButton extends StatelessWidget {
                         horizontal: true,
                         width: 120,
                         // hight: 50,
-                        selectedColor: Theme.of(context).accentColor,
+                        selectedColor: Theme.of(context).colorScheme.secondary,
                         padding: 5,
                         spacing: 0.0,
                         // enableShape: true,

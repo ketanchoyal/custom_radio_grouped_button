@@ -1,9 +1,7 @@
-import 'package:custom_radio_grouped_button/CustomButtons/ButtonTextStyle.dart';
-import 'package:flutter/material.dart';
-
-import '../custom_radio_grouped_button.dart';
+part of '../custom_radio_grouped_button.dart';
 
 class CustomCheckBoxGroup<T> extends StatefulWidget {
+  /// [spacing] Spacing between buttons
   CustomCheckBoxGroup({
     Key? key,
     this.horizontal = false,
@@ -19,7 +17,7 @@ class CustomCheckBoxGroup<T> extends StatefulWidget {
     this.shapeRadius = 50,
     this.radius = 20,
     required this.buttonLables,
-    this.checkBoxButtonValues,
+    required this.checkBoxButtonValues,
     required this.selectedColor,
     this.selectedBorderColor,
     this.wrapAlignment = WrapAlignment.start,
@@ -32,12 +30,13 @@ class CustomCheckBoxGroup<T> extends StatefulWidget {
     this.enableButtonWrap = false,
   })  : assert(buttonLables.length == buttonValuesList.length,
             "Button values list and button lables list should have same number of eliments "),
-        assert(unSelectedColor != null, "Unselected color cannot be null"),
+        // assert(unSelectedColor != null, "Unselected color cannot be null"),
         assert(buttonValuesList.toSet().length == buttonValuesList.length,
             "Multiple buttons with same value cannot exist"),
         // assert(buttonLables.toSet().length == buttonLables.length,
         //     "Multiple buttons label wth same value cannot exist"),
-        assert(selectedColor != null, "Selected color cannot be null") {
+        // assert(selectedColor != null, "Selected color cannot be null"),
+        super(key: key) {
     if (absoluteZeroSpacing) {
       this.padding = 0;
       this.spacing = 0;
@@ -84,7 +83,7 @@ class CustomCheckBoxGroup<T> extends StatefulWidget {
 
   final List<String> buttonLables;
 
-  final void Function(List<T>)? checkBoxButtonValues;
+  final void Function(List<T>) checkBoxButtonValues;
 
   ///Selected Color of button
   final Color selectedColor;
@@ -181,19 +180,17 @@ class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
                   selectedLables.add(e);
                 }
                 setState(() {});
-                widget.checkBoxButtonValues!(selectedLables);
+                widget.checkBoxButtonValues(selectedLables);
               },
-              child: Center(
-                child: Text(
-                  widget.buttonLables[index],
-                  textAlign: TextAlign.center,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                  style: widget.buttonTextStyle.textStyle.copyWith(
-                    color: selectedLables.contains(e)
-                        ? widget.buttonTextStyle.selectedColor
-                        : widget.buttonTextStyle.unSelectedColor,
-                  ),
+              child: Text(
+                widget.buttonLables[index],
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                style: widget.buttonTextStyle.textStyle?.copyWith(
+                  color: selectedLables.contains(e)
+                      ? widget.buttonTextStyle.selectedColor
+                      : widget.buttonTextStyle.unSelectedColor,
                 ),
               ),
             ),
@@ -224,7 +221,7 @@ class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
         child: Container(
           height: widget.height,
           width: widget.autoWidth ? null : widget.width,
-          constraints: BoxConstraints(maxWidth: 250),
+          constraints: widget.autoWidth ? null : BoxConstraints(maxWidth: 250),
           child: MaterialButton(
             shape: widget.enableShape
                 ? widget.customShape == null
@@ -245,19 +242,17 @@ class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
                 selectedLables.add(e);
               }
               setState(() {});
-              widget.checkBoxButtonValues!(selectedLables);
+              widget.checkBoxButtonValues(selectedLables);
             },
-            child: Center(
-              child: Text(
-                widget.buttonLables[index],
-                textAlign: TextAlign.center,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                style: widget.buttonTextStyle.textStyle.copyWith(
-                  color: selectedLables.contains(e)
-                      ? widget.buttonTextStyle.selectedColor
-                      : widget.buttonTextStyle.unSelectedColor,
-                ),
+            child: Text(
+              widget.buttonLables[index],
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+              style: widget.buttonTextStyle.textStyle?.copyWith(
+                color: selectedLables.contains(e)
+                    ? widget.buttonTextStyle.selectedColor
+                    : widget.buttonTextStyle.unSelectedColor,
               ),
             ),
           ),
