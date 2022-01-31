@@ -28,6 +28,12 @@ class CustomCheckBoxGroup<T> extends StatefulWidget {
     this.absoluteZeroSpacing = false,
     this.margin,
     this.enableButtonWrap = false,
+    this.selectedPrefixIcon,
+    this.unselectedPrefixIcon,
+    this.prefixIconSize = 24,
+    this.prefixIconSelectedColor,
+    this.prefixIconUnselectedColor,
+    this.prefixIconPadding,
   })  : assert(buttonLables.length == buttonValuesList.length,
             "Button values list and button lables list should have same number of eliments "),
         // assert(unSelectedColor != null, "Unselected color cannot be null"),
@@ -115,6 +121,23 @@ class CustomCheckBoxGroup<T> extends StatefulWidget {
   /// Radius for shape radio button
   final double shapeRadius;
 
+  /// prefix Icon for the radio button
+  final IconData? selectedPrefixIcon;
+
+  final IconData? unselectedPrefixIcon;
+
+  ///size for Prefix Icons
+  final double prefixIconSize;
+
+  ///Color for Prefix Icons(When Selected)
+  final Color? prefixIconSelectedColor;
+
+  ///Color for Prefix Icons(When Unselected)
+  final Color? prefixIconUnselectedColor;
+
+  ///Padding for Prefix Icons
+  final EdgeInsetsGeometry? prefixIconPadding;
+
   _CustomCheckBoxGroupState createState() => _CustomCheckBoxGroupState();
 }
 
@@ -141,8 +164,90 @@ class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
     return widget.buttonValuesList.map((e) {
       int index = widget.buttonValuesList.indexOf(e);
       return Padding(
-        padding: EdgeInsets.all(widget.padding),
-        child: Card(
+          padding: EdgeInsets.all(widget.padding),
+          child: Card(
+            margin: widget.margin ??
+                EdgeInsets.all(widget.absoluteZeroSpacing ? 0 : 4),
+            color: selectedLables.contains(e)
+                ? widget.selectedColor
+                : widget.unSelectedColor,
+            elevation: widget.elevation,
+            shape: widget.enableShape
+                ? widget.customShape == null
+                    ? RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                            Radius.circular(widget.shapeRadius)),
+                      )
+                    : widget.customShape
+                : null,
+            child: Container(
+              height: widget.height,
+              child: MaterialButton(
+                shape: widget.enableShape
+                    ? widget.customShape == null
+                        ? OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: borderColor(e), width: 1),
+                            borderRadius: BorderRadius.all(
+                                Radius.circular(widget.radius)),
+                          )
+                        : widget.customShape
+                    : OutlineInputBorder(
+                        borderSide: BorderSide(color: borderColor(e), width: 1),
+                        borderRadius: BorderRadius.zero,
+                      ),
+                onPressed: () {
+                  if (selectedLables.contains(e)) {
+                    selectedLables.remove(e);
+                  } else {
+                    selectedLables.add(e);
+                  }
+                  setState(() {});
+                  widget.checkBoxButtonValues(selectedLables);
+                },
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: widget.selectedPrefixIcon != null
+                      ? MainAxisAlignment.start
+                      : MainAxisAlignment.center,
+                  children: [
+                    widget.selectedPrefixIcon != null
+                        ? Container(
+                            padding: widget.prefixIconPadding,
+                            child: Icon(
+                                selectedLables.contains(e)
+                                    ? widget.selectedPrefixIcon
+                                    : widget.unselectedPrefixIcon != null
+                                        ? widget.unselectedPrefixIcon
+                                        : widget.selectedPrefixIcon,
+                                size: widget.prefixIconSize,
+                                color: selectedLables.contains(e)
+                                    ? widget.prefixIconSelectedColor
+                                    : widget.prefixIconUnselectedColor))
+                        : Container(),
+                    Text(
+                      widget.buttonLables[index],
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: widget.buttonTextStyle.textStyle?.copyWith(
+                        color: selectedLables.contains(e)
+                            ? widget.buttonTextStyle.selectedColor
+                            : widget.buttonTextStyle.unSelectedColor,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ));
+    }).toList();
+  }
+
+  List<Widget> _buildButtonsRow() {
+    return widget.buttonValuesList.map((e) {
+      int index = widget.buttonValuesList.indexOf(e);
+      return Card(
           margin: widget.margin ??
               EdgeInsets.all(widget.absoluteZeroSpacing ? 0 : 4),
           color: selectedLables.contains(e)
@@ -159,6 +264,9 @@ class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
               : null,
           child: Container(
             height: widget.height,
+            width: widget.autoWidth ? null : widget.width,
+            constraints:
+                widget.autoWidth ? null : BoxConstraints(maxWidth: 250),
             child: MaterialButton(
               shape: widget.enableShape
                   ? widget.customShape == null
@@ -182,83 +290,41 @@ class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
                 setState(() {});
                 widget.checkBoxButtonValues(selectedLables);
               },
-              child: Text(
-                widget.buttonLables[index],
-                textAlign: TextAlign.center,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                style: widget.buttonTextStyle.textStyle?.copyWith(
-                  color: selectedLables.contains(e)
-                      ? widget.buttonTextStyle.selectedColor
-                      : widget.buttonTextStyle.unSelectedColor,
-                ),
-              ),
+              child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: widget.selectedPrefixIcon != null
+                      ? MainAxisAlignment.start
+                      : MainAxisAlignment.center,
+                  children: [
+                    widget.selectedPrefixIcon != null
+                        ? Container(
+                            padding: widget.prefixIconPadding,
+                            child: Icon(
+                                selectedLables.contains(e)
+                                    ? widget.selectedPrefixIcon
+                                    : widget.unselectedPrefixIcon != null
+                                        ? widget.unselectedPrefixIcon
+                                        : widget.selectedPrefixIcon,
+                                size: widget.prefixIconSize,
+                                color: selectedLables.contains(e)
+                                    ? widget.prefixIconSelectedColor
+                                    : widget.prefixIconUnselectedColor))
+                        : Container(),
+                    Text(
+                      widget.buttonLables[index],
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: widget.buttonTextStyle.textStyle?.copyWith(
+                        color: selectedLables.contains(e)
+                            ? widget.buttonTextStyle.selectedColor
+                            : widget.buttonTextStyle.unSelectedColor,
+                      ),
+                    ),
+                  ]),
             ),
-          ),
-        ),
-      );
-    }).toList();
-  }
-
-  List<Widget> _buildButtonsRow() {
-    return widget.buttonValuesList.map((e) {
-      int index = widget.buttonValuesList.indexOf(e);
-      return Card(
-        margin:
-            widget.margin ?? EdgeInsets.all(widget.absoluteZeroSpacing ? 0 : 4),
-        color: selectedLables.contains(e)
-            ? widget.selectedColor
-            : widget.unSelectedColor,
-        elevation: widget.elevation,
-        shape: widget.enableShape
-            ? widget.customShape == null
-                ? RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.all(Radius.circular(widget.shapeRadius)),
-                  )
-                : widget.customShape
-            : null,
-        child: Container(
-          height: widget.height,
-          width: widget.autoWidth ? null : widget.width,
-          constraints: widget.autoWidth ? null : BoxConstraints(maxWidth: 250),
-          child: MaterialButton(
-            shape: widget.enableShape
-                ? widget.customShape == null
-                    ? OutlineInputBorder(
-                        borderSide: BorderSide(color: borderColor(e), width: 1),
-                        borderRadius:
-                            BorderRadius.all(Radius.circular(widget.radius)),
-                      )
-                    : widget.customShape
-                : OutlineInputBorder(
-                    borderSide: BorderSide(color: borderColor(e), width: 1),
-                    borderRadius: BorderRadius.zero,
-                  ),
-            onPressed: () {
-              if (selectedLables.contains(e)) {
-                selectedLables.remove(e);
-              } else {
-                selectedLables.add(e);
-              }
-              setState(() {});
-              widget.checkBoxButtonValues(selectedLables);
-            },
-            child: Text(
-              widget.buttonLables[index],
-              textAlign: TextAlign.center,
-              overflow: TextOverflow.ellipsis,
-              maxLines: 1,
-              style: widget.buttonTextStyle.textStyle?.copyWith(
-                color: selectedLables.contains(e)
-                    ? widget.buttonTextStyle.selectedColor
-                    : widget.buttonTextStyle.unSelectedColor,
-              ),
-            ),
-          ),
-        ),
-        // ),
-      );
+            // ),
+          ));
     }).toList();
   }
 
