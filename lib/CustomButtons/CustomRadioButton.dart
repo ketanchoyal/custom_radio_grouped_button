@@ -28,6 +28,12 @@ class CustomRadioButton<T> extends StatefulWidget {
     this.absoluteZeroSpacing = false,
     this.margin,
     this.wrapAlignment = WrapAlignment.start,
+    this.selectedPrefixIcon,
+    this.unselectedPrefixIcon,
+    this.prefixIconSize = 24,
+    this.prefixIconSelectedColor,
+    this.prefixIconUnselectedColor,
+    this.prefixIconPadding = const EdgeInsets.symmetric(horizontal: 10),
   })  : assert(buttonLables.length == buttonValues.length,
             "Button values list and button lables list should have same number of eliments "),
         // assert(unSelectedColor != null, "Unselected color cannot be null"),
@@ -115,6 +121,23 @@ class CustomRadioButton<T> extends StatefulWidget {
   /// Radius for shape radio button
   final double shapeRadius;
 
+  /// prefix Icon for the radio button
+  final IconData? selectedPrefixIcon;
+
+  final IconData? unselectedPrefixIcon;
+
+  ///size for Prefix Icons
+  final double prefixIconSize;
+
+  ///Color for Prefix Icons(When Selected)
+  final Color? prefixIconSelectedColor;
+
+  ///Color for Prefix Icons(When Unselected)
+  final Color? prefixIconUnselectedColor;
+
+  ///Padding for Prefix Icons
+  final EdgeInsetsGeometry? prefixIconPadding;
+
   _CustomRadioButtonState createState() => _CustomRadioButtonState();
 }
 
@@ -182,16 +205,40 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
                   _currentSelectedLabel = widget.buttonLables[index];
                 });
               },
-              child: Text(
-                widget.buttonLables[index],
-                textAlign: TextAlign.center,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                style: widget.buttonTextStyle.textStyle?.copyWith(
-                  color: _currentSelectedLabel == widget.buttonLables[index]
-                      ? widget.buttonTextStyle.selectedColor
-                      : widget.buttonTextStyle.unSelectedColor,
-                ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: widget.selectedPrefixIcon != null
+                    ? MainAxisAlignment.start
+                    : MainAxisAlignment.center,
+                children: [
+                  widget.selectedPrefixIcon != null
+                      ? Container(
+                          padding: widget.prefixIconPadding,
+                          child: Icon(
+                              _currentSelectedLabel ==
+                                      widget.buttonLables[index]
+                                  ? widget.selectedPrefixIcon
+                                  : widget.unselectedPrefixIcon != null
+                                      ? widget.unselectedPrefixIcon
+                                      : widget.selectedPrefixIcon,
+                              size: widget.prefixIconSize,
+                              color: _currentSelectedLabel ==
+                                      widget.buttonLables[index]
+                                  ? widget.prefixIconSelectedColor
+                                  : widget.prefixIconUnselectedColor))
+                      : Container(),
+                  Text(
+                    widget.buttonLables[index],
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    style: widget.buttonTextStyle.textStyle?.copyWith(
+                      color: _currentSelectedLabel == widget.buttonLables[index]
+                          ? widget.buttonTextStyle.selectedColor
+                          : widget.buttonTextStyle.unSelectedColor,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -242,16 +289,39 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
                 _currentSelectedLabel = widget.buttonLables[index];
               });
             },
-            child: Text(
-              widget.buttonLables[index],
-              textAlign: TextAlign.left,
-              overflow: TextOverflow.ellipsis,
-              maxLines: 1,
-              style: widget.buttonTextStyle.textStyle?.copyWith(
-                color: _currentSelectedLabel == widget.buttonLables[index]
-                    ? widget.buttonTextStyle.selectedColor
-                    : widget.buttonTextStyle.unSelectedColor,
-              ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: widget.selectedPrefixIcon != null
+                  ? MainAxisAlignment.start
+                  : MainAxisAlignment.center,
+              children: [
+                widget.selectedPrefixIcon != null
+                    ? Container(
+                        padding: widget.prefixIconPadding,
+                        child: Icon(
+                            _currentSelectedLabel == widget.buttonLables[index]
+                                ? widget.selectedPrefixIcon
+                                : widget.unselectedPrefixIcon != null
+                                    ? widget.unselectedPrefixIcon
+                                    : widget.selectedPrefixIcon,
+                            size: widget.prefixIconSize,
+                            color: _currentSelectedLabel ==
+                                    widget.buttonLables[index]
+                                ? widget.prefixIconSelectedColor
+                                : widget.prefixIconUnselectedColor))
+                    : Container(),
+                Text(
+                  widget.buttonLables[index],
+                  textAlign: TextAlign.left,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                  style: widget.buttonTextStyle.textStyle?.copyWith(
+                    color: _currentSelectedLabel == widget.buttonLables[index]
+                        ? widget.buttonTextStyle.selectedColor
+                        : widget.buttonTextStyle.unSelectedColor,
+                  ),
+                ),
+              ],
             ),
           ),
         ),

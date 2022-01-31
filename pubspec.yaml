@@ -10,10 +10,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  material: ^1.0.0+2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-
-flutter:
+flutter: null
