@@ -25,6 +25,7 @@ class CustomRadioButton<T> extends StatefulWidget {
     this.radius = 20,
     this.defaultSelected,
     this.customShape,
+    this.scrollController,
     this.absoluteZeroSpacing = false,
     this.margin,
     this.wrapAlignment = WrapAlignment.start,
@@ -48,6 +49,8 @@ class CustomRadioButton<T> extends StatefulWidget {
 
   ///Orientation of the Button Group
   final bool horizontal;
+
+  final ScrollController? scrollController;
 
   ///Values of button
   final List<T> buttonValues;
@@ -272,6 +275,7 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
         child: Center(
           child: CustomListViewSpacing(
             spacing: widget.spacing,
+            scrollController: scrollController,
             scrollDirection: Axis.vertical,
             children: _buildButtonsColumn(),
           ),
@@ -294,6 +298,7 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
         child: Center(
           child: CustomListViewSpacing(
             spacing: widget.spacing,
+            scrollController: scrollController,
             scrollDirection: Axis.horizontal,
             children: _buildButtonsRow(),
           ),
