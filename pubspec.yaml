@@ -1,11 +1,11 @@
 name: custom_radio_grouped_button
 description: Custom Radio Buttons and Grouped Check Box Button
-version: 2.1.1
+version: 2.1.2
 
 homepage: https://github.com/ketanchoyal/custom_radio_grouped_button
 
 environment:
-  sdk: '>=2.12.0 <3.0.0'
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -14,6 +14,5 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
 
 flutter:

@@ -26,6 +26,7 @@ class CustomCheckBoxGroup<T> extends StatefulWidget {
     this.unSelectedBorderColor,
     this.customShape,
     this.absoluteZeroSpacing = false,
+    this.scrollController,
     this.margin,
     this.enableButtonWrap = false,
   })  : assert(buttonLables.length == buttonValuesList.length,
@@ -48,6 +49,8 @@ class CustomCheckBoxGroup<T> extends StatefulWidget {
 
   ///Orientation of the Button Group
   final bool horizontal;
+
+  final ScrollController? scrollController;
 
   ///This option will make sure that there is no spacing in between buttons
   final bool absoluteZeroSpacing;
@@ -274,6 +277,7 @@ class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
             widget.padding * 2 * widget.buttonLables.length,
         child: Center(
           child: CustomListViewSpacing(
+            scrollController: widget.scrollController,
             spacing: widget.spacing,
             scrollDirection: Axis.vertical,
             children: _buildButtonsColumn(),
@@ -297,6 +301,7 @@ class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
         child: Center(
           child: CustomListViewSpacing(
             spacing: widget.spacing,
+            scrollController: widget.scrollController,
             scrollDirection: Axis.horizontal,
             children: _buildButtonsRow(),
           ),
