@@ -1,3 +1,5 @@
+## [2.1.2] - 11 March 2022
+- ScrollController added for scrollable buttons
 ## [2.1.1] - 17 Sep 2021
 - Changed shrinkWrap to true (to enable centering of the scrollable buttons)
 ## [2.1.0] - 17 Sep 2021
