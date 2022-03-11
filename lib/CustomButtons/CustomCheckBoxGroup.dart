@@ -277,7 +277,7 @@ class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
             widget.padding * 2 * widget.buttonLables.length,
         child: Center(
           child: CustomListViewSpacing(
-            scrollController: scrollController,
+            scrollController: widget.scrollController,
             spacing: widget.spacing,
             scrollDirection: Axis.vertical,
             children: _buildButtonsColumn(),
@@ -301,7 +301,7 @@ class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
         child: Center(
           child: CustomListViewSpacing(
             spacing: widget.spacing,
-            scrollController: scrollController,
+            scrollController: widget.scrollController,
             scrollDirection: Axis.horizontal,
             children: _buildButtonsRow(),
           ),

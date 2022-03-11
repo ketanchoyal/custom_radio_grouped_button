@@ -275,7 +275,7 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
         child: Center(
           child: CustomListViewSpacing(
             spacing: widget.spacing,
-            scrollController: scrollController,
+            scrollController: widget.scrollController,
             scrollDirection: Axis.vertical,
             children: _buildButtonsColumn(),
           ),
@@ -298,7 +298,7 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
         child: Center(
           child: CustomListViewSpacing(
             spacing: widget.spacing,
-            scrollController: scrollController,
+            scrollController: widget.scrollController,
             scrollDirection: Axis.horizontal,
             children: _buildButtonsRow(),
           ),

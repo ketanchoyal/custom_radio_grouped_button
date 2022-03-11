@@ -12,20 +12,16 @@ class CustomListViewSpacing extends StatelessWidget {
       this.scrollDirection = Axis.vertical});
 
   Widget build(BuildContext context) {
-    return ListView.builder(
+    return ListView(
       scrollDirection: scrollDirection,
       shrinkWrap: true,
-      scrollController: scrollController,
-      itemCount: children.length
-      builder : (context, index) {
-        return Container(
+      controller: scrollController,
+      children: children
+          .map((c) => Container(
                 padding: EdgeInsets.all(spacing),
-                child: children[index],
-              );
-      }
-      // children: children
-      //     .map((c) => )
-      //     .toList(),
+                child: c,
+              ))
+          .toList(),
     );
   }
 }

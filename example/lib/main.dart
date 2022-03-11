@@ -65,6 +65,7 @@ class GroupedButton extends StatelessWidget {
                         height: 10,
                       ),
                       CustomCheckBoxGroup(
+                        // scrollController: ScrollController(),
                         unSelectedColor: Theme.of(context).canvasColor,
                         buttonLables: [
                           "Monday",
