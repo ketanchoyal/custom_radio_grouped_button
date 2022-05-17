@@ -1,3 +1,5 @@
+## [2.1.2+1] - 17 May 2022
+- Minor bug fixes
 ## [2.1.2] - 11 March 2022
 - ScrollController added for scrollable buttons
 ## [2.1.1] - 17 Sep 2021

@@ -3,7 +3,7 @@ part of '../custom_radio_grouped_button.dart';
 class CustomCheckBoxGroup<T> extends StatefulWidget {
   /// [spacing] Spacing between buttons
   CustomCheckBoxGroup({
-    Key? key,
+    super.key,
     this.horizontal = false,
     required this.buttonValuesList,
     this.buttonTextStyle = const ButtonTextStyle(),
@@ -31,13 +31,8 @@ class CustomCheckBoxGroup<T> extends StatefulWidget {
     this.enableButtonWrap = false,
   })  : assert(buttonLables.length == buttonValuesList.length,
             "Button values list and button lables list should have same number of eliments "),
-        // assert(unSelectedColor != null, "Unselected color cannot be null"),
         assert(buttonValuesList.toSet().length == buttonValuesList.length,
-            "Multiple buttons with same value cannot exist"),
-        // assert(buttonLables.toSet().length == buttonLables.length,
-        //     "Multiple buttons label wth same value cannot exist"),
-        // assert(selectedColor != null, "Selected color cannot be null"),
-        super(key: key) {
+            "Multiple buttons with same value cannot exist") {
     if (absoluteZeroSpacing) {
       this.padding = 0;
       this.spacing = 0;
@@ -98,7 +93,7 @@ class CustomCheckBoxGroup<T> extends StatefulWidget {
   final WrapAlignment wrapAlignment;
 
   ///Default Selected button
-  final T? defaultSelected;
+  final List<T>? defaultSelected;
 
   ///Unselected Color of the button
   final Color unSelectedColor;
@@ -135,7 +130,7 @@ class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
     super.initState();
     widget.defaultSelected?.where((e) {
       return widget.buttonValuesList.contains(e);
-    })?.forEach((e) {
+    }).forEach((e) {
       selectedLables.add(e);
     });
   }
@@ -190,7 +185,7 @@ class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
-                style: widget.buttonTextStyle.textStyle?.copyWith(
+                style: widget.buttonTextStyle.textStyle.copyWith(
                   color: selectedLables.contains(e)
                       ? widget.buttonTextStyle.selectedColor
                       : widget.buttonTextStyle.unSelectedColor,
@@ -252,7 +247,7 @@ class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
-              style: widget.buttonTextStyle.textStyle?.copyWith(
+              style: widget.buttonTextStyle.textStyle.copyWith(
                 color: selectedLables.contains(e)
                     ? widget.buttonTextStyle.selectedColor
                     : widget.buttonTextStyle.unSelectedColor,

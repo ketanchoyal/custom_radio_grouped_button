@@ -64,7 +64,7 @@ class GroupedButton extends StatelessWidget {
                       SizedBox(
                         height: 10,
                       ),
-                      CustomCheckBoxGroup(
+                      CustomCheckBoxGroup<String>(
                         // scrollController: ScrollController(),
                         unSelectedColor: Theme.of(context).canvasColor,
                         buttonLables: [
@@ -110,7 +110,7 @@ class GroupedButton extends StatelessWidget {
                       CustomCheckBoxGroup(
                         unSelectedColor: Theme.of(context).canvasColor,
                         buttonLables: [
-                          "Thursday",
+                          "Thursday Thursday Thursday Thursday",
                           "Friday",
                           "Saturday",
                           "Sunday",
@@ -128,7 +128,7 @@ class GroupedButton extends StatelessWidget {
                         horizontal: true,
                         width: 120,
                         // hight: 50,
-                        selectedColor: Theme.of(context).accentColor,
+                        selectedColor: Theme.of(context).colorScheme.secondary,
                         padding: 5,
                         enableShape: true,
                       ),
@@ -197,7 +197,7 @@ class GroupedButton extends StatelessWidget {
                       enableButtonWrap: false,
                       width: 40,
                       absoluteZeroSpacing: false,
-                      selectedColor: Theme.of(context).accentColor,
+                      selectedColor: Theme.of(context).colorScheme.secondary,
                       padding: 10,
                       // enableShape: true,
                     ),
@@ -228,7 +228,7 @@ class GroupedButton extends StatelessWidget {
                       wrapAlignment: WrapAlignment.center,
                       unSelectedColor: Theme.of(context).canvasColor,
                       buttonLables: [
-                        "Monday",
+                        "Monday Monday Mondays",
                         "Tuesday",
                         "Wednesday",
                         "Thursday",
@@ -252,7 +252,7 @@ class GroupedButton extends StatelessWidget {
                       horizontal: false,
                       width: 120,
                       // hight: 50,
-                      selectedColor: Theme.of(context).accentColor,
+                      selectedColor: Theme.of(context).colorScheme.secondary,
                       padding: 5,
                       enableShape: true,
                     ),

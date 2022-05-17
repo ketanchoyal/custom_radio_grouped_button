@@ -1,7 +1,7 @@
 name: example
 description: A new Flutter application.
 
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 homepage: https://github.com/ketanchoyal/custom_radio_grouped_button
 
 version: 1.0.0+1
