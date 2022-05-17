@@ -3,7 +3,7 @@ part of '../custom_radio_grouped_button.dart';
 class CustomRadioButton<T> extends StatefulWidget {
   /// [spacing] Spacing between buttons
   CustomRadioButton({
-    Key? key,
+    super.key,
     required this.buttonLables,
     required this.buttonValues,
     this.buttonTextStyle = const ButtonTextStyle(),
@@ -31,13 +31,8 @@ class CustomRadioButton<T> extends StatefulWidget {
     this.wrapAlignment = WrapAlignment.start,
   })  : assert(buttonLables.length == buttonValues.length,
             "Button values list and button lables list should have same number of eliments "),
-        // assert(unSelectedColor != null, "Unselected color cannot be null"),
         assert(buttonValues.toSet().length == buttonValues.length,
-            "Multiple buttons with same value cannot exist"),
-        // assert(buttonLables.toSet().length == buttonLables.length,
-        //     "Multiple buttons label wth same value cannot exist"),
-        // assert(selectedColor != null, "Selected color cannot be null"),
-        super(key: key) {
+            "Multiple buttons with same value cannot exist") {
     if (absoluteZeroSpacing) {
       this.padding = 0;
       this.spacing = 0;
@@ -190,7 +185,7 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
-                style: widget.buttonTextStyle.textStyle?.copyWith(
+                style: widget.buttonTextStyle.textStyle.copyWith(
                   color: _currentSelectedLabel == widget.buttonLables[index]
                       ? widget.buttonTextStyle.selectedColor
                       : widget.buttonTextStyle.unSelectedColor,
@@ -250,7 +245,7 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
               textAlign: TextAlign.left,
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
-              style: widget.buttonTextStyle.textStyle?.copyWith(
+              style: widget.buttonTextStyle.textStyle.copyWith(
                 color: _currentSelectedLabel == widget.buttonLables[index]
                     ? widget.buttonTextStyle.selectedColor
                     : widget.buttonTextStyle.unSelectedColor,
