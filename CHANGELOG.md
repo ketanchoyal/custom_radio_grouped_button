@@ -1,3 +1,5 @@
+## [2.1.2+2] - 25 June 2022
+- Minor bug fixes
 ## [2.1.2+1] - 17 May 2022
 - Minor bug fixes
 ## [2.1.2] - 11 March 2022

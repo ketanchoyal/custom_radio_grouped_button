@@ -113,10 +113,10 @@ class CustomRadioButton<T> extends StatefulWidget {
   /// Radius for shape radio button
   final double shapeRadius;
 
-  _CustomRadioButtonState createState() => _CustomRadioButtonState();
+  _CustomRadioButtonState<T> createState() => _CustomRadioButtonState<T>();
 }
 
-class _CustomRadioButtonState extends State<CustomRadioButton> {
+class _CustomRadioButtonState<T> extends State<CustomRadioButton<T>> {
   String? _currentSelectedLabel;
 
   Color borderColor(index) =>
@@ -130,7 +130,7 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
     super.initState();
     if (widget.defaultSelected != null) {
       if (widget.buttonValues.contains(widget.defaultSelected)) {
-        int index = widget.buttonValues.indexOf(widget.defaultSelected);
+        int index = widget.buttonValues.indexOf(widget.defaultSelected!);
         _currentSelectedLabel = widget.buttonLables[index];
       } else
         throw Exception("Default Value not found in button value list");
