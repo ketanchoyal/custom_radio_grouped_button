@@ -11,7 +11,7 @@ class CustomRadioButton<T> extends StatefulWidget {
     required this.radioButtonValue,
     required this.unSelectedColor,
     this.unSelectedBorderColor,
-    double padding = 3,
+    double padding = 0,
     double spacing = 0.0,
     required this.selectedColor,
     this.selectedBorderColor,
