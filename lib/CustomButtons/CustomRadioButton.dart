@@ -29,8 +29,14 @@ class CustomRadioButton<T> extends StatefulWidget {
     this.absoluteZeroSpacing = false,
     this.margin,
     this.wrapAlignment = WrapAlignment.start,
+    this.disabledValues = const [],
+    this.disabledColor,
   })  : assert(buttonLables.length == buttonValues.length,
             "Button values list and button lables list should have same number of eliments "),
+        // assert(
+        //     buttonValues.toSet().intersection(disabledValues.toSet()) ==
+        //         disabledValues.toSet(),
+        //     "Disabled values should be present in button values"),
         assert(buttonValues.toSet().length == buttonValues.length,
             "Multiple buttons with same value cannot exist") {
     if (absoluteZeroSpacing) {
@@ -76,6 +82,9 @@ class CustomRadioButton<T> extends StatefulWidget {
 
   final List<String> buttonLables;
 
+  ///List of disabled values
+  final List<T> disabledValues;
+
   ///Styling class for label
   final ButtonTextStyle buttonTextStyle;
 
@@ -86,6 +95,10 @@ class CustomRadioButton<T> extends StatefulWidget {
 
   ///Selected Color of button
   final Color selectedColor;
+
+  ///Disabled Color of button
+  ///If not provided will use [unSelectedColor]
+  final Color? disabledColor;
 
   ///Unselected Color of the button border
   final Color? unSelectedBorderColor;
@@ -140,14 +153,17 @@ class _CustomRadioButtonState<T> extends State<CustomRadioButton<T>> {
   List<Widget> _buildButtonsColumn() {
     return widget.buttonValues.map((e) {
       int index = widget.buttonValues.indexOf(e);
+      bool disabled = widget.disabledValues.contains(e);
       return Padding(
         padding: EdgeInsets.all(widget.padding),
         child: Card(
           margin: widget.margin ??
               EdgeInsets.all(widget.absoluteZeroSpacing ? 0 : 4),
-          color: _currentSelectedLabel == widget.buttonLables[index]
-              ? widget.selectedColor
-              : widget.unSelectedColor,
+          color: disabled
+              ? widget.disabledColor ?? widget.unSelectedColor
+              : _currentSelectedLabel == widget.buttonLables[index]
+                  ? widget.selectedColor
+                  : widget.unSelectedColor,
           elevation: widget.elevation,
           shape: widget.enableShape
               ? widget.customShape == null
@@ -174,21 +190,25 @@ class _CustomRadioButtonState<T> extends State<CustomRadioButton<T>> {
                           BorderSide(color: borderColor(index), width: 1),
                       borderRadius: BorderRadius.zero,
                     ),
-              onPressed: () {
-                widget.radioButtonValue(e);
-                setState(() {
-                  _currentSelectedLabel = widget.buttonLables[index];
-                });
-              },
+              onPressed: disabled
+                  ? null
+                  : () {
+                      widget.radioButtonValue(e);
+                      setState(() {
+                        _currentSelectedLabel = widget.buttonLables[index];
+                      });
+                    },
               child: Text(
                 widget.buttonLables[index],
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
                 style: widget.buttonTextStyle.textStyle.copyWith(
-                  color: _currentSelectedLabel == widget.buttonLables[index]
-                      ? widget.buttonTextStyle.selectedColor
-                      : widget.buttonTextStyle.unSelectedColor,
+                  color: disabled
+                      ? widget.buttonTextStyle.disabledColor
+                      : _currentSelectedLabel == widget.buttonLables[index]
+                          ? widget.buttonTextStyle.selectedColor
+                          : widget.buttonTextStyle.unSelectedColor,
                 ),
               ),
             ),

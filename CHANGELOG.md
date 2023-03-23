@@ -1,3 +1,6 @@
+## [2.1.3] - 22 March 2023
+- Added Feature to disable a button  (Fix #67)
+
 ## [2.1.2+2] - 25 June 2022
 - Minor bug fixes
 ## [2.1.2+1] - 17 May 2022

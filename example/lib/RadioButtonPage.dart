@@ -50,6 +50,9 @@ class RadioButton extends StatelessWidget {
                       CustomRadioButton(
                         horizontal: true,
                         unSelectedColor: Theme.of(context).canvasColor,
+                        disabledValues: [
+                          "PARENT",
+                        ],
                         buttonLables: [
                           'Student',
                           'Parent',
@@ -68,7 +71,7 @@ class RadioButton extends StatelessWidget {
                         radioButtonValue: (value) {
                           print(value);
                         },
-                        selectedColor: Theme.of(context).accentColor,
+                        selectedColor: Theme.of(context).colorScheme.secondary,
                       ),
                     ],
                   ),
@@ -154,7 +157,7 @@ class RadioButton extends StatelessWidget {
                       buttonTextStyle: ButtonTextStyle(
                         selectedColor: Colors.white,
                         unSelectedColor: Colors.black,
-                        textStyle: Theme.of(context).textTheme.bodyText1,
+                        textStyle: Theme.of(context).textTheme.bodyLarge,
                       ),
                       radioButtonValue: (value) {
                         print(value);
