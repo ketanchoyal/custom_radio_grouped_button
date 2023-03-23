@@ -29,6 +29,8 @@ class CustomCheckBoxGroup<T> extends StatefulWidget {
     this.scrollController,
     this.margin,
     this.enableButtonWrap = false,
+    this.disabledValues = const [],
+    this.disabledColor,
   })  : assert(buttonLables.length == buttonValuesList.length,
             "Button values list and button lables list should have same number of eliments "),
         assert(buttonValuesList.toSet().length == buttonValuesList.length,
@@ -95,8 +97,15 @@ class CustomCheckBoxGroup<T> extends StatefulWidget {
   ///Default Selected button
   final List<T>? defaultSelected;
 
+  ///List of disabled values
+  final List<T> disabledValues;
+
   ///Unselected Color of the button
   final Color unSelectedColor;
+
+  ///Disabled Color of button
+  ///If not provided will use [unSelectedColor]
+  final Color? disabledColor;
 
   ///Unselected Color of the button border
   final Color? unSelectedBorderColor;
@@ -137,15 +146,18 @@ class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
 
   List<Widget> _buildButtonsColumn() {
     return widget.buttonValuesList.map((e) {
+      bool disabled = widget.disabledValues.contains(e);
       int index = widget.buttonValuesList.indexOf(e);
       return Padding(
         padding: EdgeInsets.all(widget.padding),
         child: Card(
           margin: widget.margin ??
               EdgeInsets.all(widget.absoluteZeroSpacing ? 0 : 4),
-          color: selectedLables.contains(e)
-              ? widget.selectedColor
-              : widget.unSelectedColor,
+          color: disabled
+              ? widget.disabledColor ?? widget.unSelectedColor
+              : selectedLables.contains(e)
+                  ? widget.selectedColor
+                  : widget.unSelectedColor,
           elevation: widget.elevation,
           shape: widget.enableShape
               ? widget.customShape == null
@@ -171,24 +183,28 @@ class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
                       borderSide: BorderSide(color: borderColor(e), width: 1),
                       borderRadius: BorderRadius.zero,
                     ),
-              onPressed: () {
-                if (selectedLables.contains(e)) {
-                  selectedLables.remove(e);
-                } else {
-                  selectedLables.add(e);
-                }
-                setState(() {});
-                widget.checkBoxButtonValues(selectedLables);
-              },
+              onPressed: disabled
+                  ? null
+                  : () {
+                      if (selectedLables.contains(e)) {
+                        selectedLables.remove(e);
+                      } else {
+                        selectedLables.add(e);
+                      }
+                      setState(() {});
+                      widget.checkBoxButtonValues(selectedLables);
+                    },
               child: Text(
                 widget.buttonLables[index],
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
                 style: widget.buttonTextStyle.textStyle.copyWith(
-                  color: selectedLables.contains(e)
-                      ? widget.buttonTextStyle.selectedColor
-                      : widget.buttonTextStyle.unSelectedColor,
+                  color: disabled
+                      ? widget.buttonTextStyle.disabledColor
+                      : selectedLables.contains(e)
+                          ? widget.buttonTextStyle.selectedColor
+                          : widget.buttonTextStyle.unSelectedColor,
                 ),
               ),
             ),

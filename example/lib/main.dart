@@ -73,6 +73,9 @@ class GroupedButton extends StatelessWidget {
                           "Wednesday",
                           "Thursday",
                         ],
+                        disabledValues: [
+                          "Monday",
+                        ],
                         buttonValuesList: [
                           "Monday",
                           "Tuesday",
