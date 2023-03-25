@@ -24,13 +24,14 @@ class CustomRadioButton<T> extends StatefulWidget {
     this.shapeRadius = 50,
     this.radius = 20,
     this.defaultSelected,
+    this.selected,
     this.customShape,
     this.scrollController,
     this.absoluteZeroSpacing = false,
     this.margin,
     this.wrapAlignment = WrapAlignment.start,
     this.disabledValues = const [],
-    this.disabledColor,
+    this.disabledColor
   })  : assert(buttonLables.length == buttonValues.length,
             "Button values list and button lables list should have same number of eliments "),
         // assert(
@@ -71,6 +72,8 @@ class CustomRadioButton<T> extends StatefulWidget {
 
   ///Default selected value
   final T? defaultSelected;
+
+  final T? selected;
 
   ///Only applied when in vertical mode
   ///This will use minimum space required
@@ -130,7 +133,27 @@ class CustomRadioButton<T> extends StatefulWidget {
 }
 
 class _CustomRadioButtonState<T> extends State<CustomRadioButton<T>> {
+
   String? _currentSelectedLabel;
+
+  bool _hasSelected() {
+    return (widget.defaultSelected != null) || (widget.selected != null);
+  }
+
+  T get _selected {
+    if (widget.selected != null) {
+      return widget.selected!;
+    } else {
+      return widget.defaultSelected!;
+    }
+  }
+
+  void _updateCurrentSelectedLabel() {
+    if (_hasSelected()) {
+      int index = widget.buttonValues.indexOf(_selected);
+      _currentSelectedLabel = widget.buttonLables[index];
+    }
+  }
 
   Color borderColor(index) =>
       (_currentSelectedLabel == widget.buttonLables[index]
@@ -141,12 +164,11 @@ class _CustomRadioButtonState<T> extends State<CustomRadioButton<T>> {
   @override
   void initState() {
     super.initState();
-    if (widget.defaultSelected != null) {
-      if (widget.buttonValues.contains(widget.defaultSelected)) {
-        int index = widget.buttonValues.indexOf(widget.defaultSelected!);
-        _currentSelectedLabel = widget.buttonLables[index];
-      } else
-        throw Exception("Default Value not found in button value list");
+    if (_hasSelected()) {
+      if (widget.buttonValues.contains(_selected)) {
+        _updateCurrentSelectedLabel();
+    } else
+      throw Exception("Default Value not found in button value list");
     }
   }
 
@@ -279,6 +301,9 @@ class _CustomRadioButtonState<T> extends State<CustomRadioButton<T>> {
 
   @override
   Widget build(BuildContext context) {
+    if (_hasSelected()) {
+      _updateCurrentSelectedLabel();
+    }
     return _buildRadioButtons();
   }
 
@@ -320,4 +345,5 @@ class _CustomRadioButtonState<T> extends State<CustomRadioButton<T>> {
         ),
       );
   }
+
 }
