@@ -1,3 +1,6 @@
+## [2.2.0] - 31 March 2023
+- Added way to select buttons programmatically (Fix #69)
+- Fixed bug where buttons were not being selected when value and label were different
 ## [2.1.3] - 22 March 2023
 - Added Feature to disable a button  (Fix #67)
 
