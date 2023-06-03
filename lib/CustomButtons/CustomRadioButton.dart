@@ -121,6 +121,7 @@ class CustomRadioButton<T> extends StatefulWidget {
   final double elevation;
 
   /// Radius for non-shape radio button
+  @Deprecated('Use shapeRadius instead')
   final double radius;
 
   /// Radius for shape radio button
@@ -194,8 +195,8 @@ class CustomRadioButtonState<T> extends State<CustomRadioButton<T>> {
                       OutlineInputBorder(
                         borderSide:
                             BorderSide(color: _borderColor(e), width: 1),
-                        borderRadius:
-                            BorderRadius.all(Radius.circular(widget.radius)),
+                        borderRadius: BorderRadius.all(
+                            Radius.circular(widget.shapeRadius)),
                       )
                   : OutlineInputBorder(
                       borderSide: BorderSide(color: _borderColor(e), width: 1),
@@ -252,7 +253,7 @@ class CustomRadioButtonState<T> extends State<CustomRadioButton<T>> {
                     OutlineInputBorder(
                       borderSide: BorderSide(color: _borderColor(e), width: 1),
                       borderRadius:
-                          BorderRadius.all(Radius.circular(widget.radius)),
+                          BorderRadius.all(Radius.circular(widget.shapeRadius)),
                     )
                 : OutlineInputBorder(
                     borderSide: BorderSide(color: _borderColor(e), width: 1),

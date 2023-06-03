@@ -1,3 +1,6 @@
+# [2.2.0+1] - 03 June 2023
+- Deprecated `radius` in favor of `borderRadius`
+
 ## [2.2.0] - 31 March 2023
 - Added way to select buttons programmatically (Fix #69)
 - Fixed bug where buttons were not being selected when value and label were different

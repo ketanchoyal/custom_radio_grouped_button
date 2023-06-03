@@ -117,6 +117,7 @@ class CustomCheckBoxGroup<T> extends StatefulWidget {
   final bool enableButtonWrap;
 
   /// Radius for non-shape radio button
+  @Deprecated('Use shapeRadius instead')
   final double radius;
 
   /// Radius for shape radio button
@@ -194,8 +195,8 @@ class CustomCheckBoxGroupState<T> extends State<CustomCheckBoxGroup<T>> {
                       ? OutlineInputBorder(
                           borderSide:
                               BorderSide(color: _borderColor(e), width: 1),
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(widget.radius)),
+                          borderRadius: BorderRadius.all(
+                              Radius.circular(widget.shapeRadius)),
                         )
                       : widget.customShape
                   : OutlineInputBorder(
@@ -254,8 +255,8 @@ class CustomCheckBoxGroupState<T> extends State<CustomCheckBoxGroup<T>> {
                     ? OutlineInputBorder(
                         borderSide:
                             BorderSide(color: _borderColor(e), width: 1),
-                        borderRadius:
-                            BorderRadius.all(Radius.circular(widget.radius)),
+                        borderRadius: BorderRadius.all(
+                            Radius.circular(widget.shapeRadius)),
                       )
                     : widget.customShape
                 : OutlineInputBorder(
