@@ -168,6 +168,7 @@ class CustomCheckBoxGroupState<T> extends State<CustomCheckBoxGroup<T>> {
     return buttonValuesList.map((e) {
       bool disabled = disabledValues.contains(e);
       int index = buttonValuesList.indexOf(e);
+      bool isSelected = selectedValues.contains(e);
       return Padding(
         padding: EdgeInsets.all(widget.padding),
         child: Card(
@@ -204,19 +205,11 @@ class CustomCheckBoxGroupState<T> extends State<CustomCheckBoxGroup<T>> {
                       borderRadius: BorderRadius.zero,
                     ),
               onPressed: disabled ? null : () => selectButton(e),
-              child: Text(
-                widget.buttonLables[index],
-                textAlign: TextAlign.center,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                style: widget.buttonTextStyle.textStyle.copyWith(
-                  color: disabled
-                      ? widget.buttonTextStyle.disabledColor
-                      : selectedValues.contains(e)
-                          ? widget.buttonTextStyle.selectedColor
-                          : widget.buttonTextStyle.unSelectedColor,
-                ),
-              ),
+              child: Text(widget.buttonLables[index],
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                  style: textStyle(isSelected, disabled)),
             ),
           ),
         ),
@@ -224,10 +217,26 @@ class CustomCheckBoxGroupState<T> extends State<CustomCheckBoxGroup<T>> {
     }).toList();
   }
 
+  TextStyle textStyle(bool isSelected, bool disabled) {
+    if (isSelected) {
+      return widget.buttonTextStyle.selectedTextStyle.copyWith(
+        color: disabled
+            ? widget.buttonTextStyle.disabledColor
+            : widget.buttonTextStyle.selectedColor,
+      );
+    }
+    return widget.buttonTextStyle.textStyle.copyWith(
+      color: disabled
+          ? widget.buttonTextStyle.disabledColor
+          : widget.buttonTextStyle.unSelectedColor,
+    );
+  }
+
   List<Widget> _buildButtonsRow() {
     return buttonValuesList.map((e) {
       int index = buttonValuesList.indexOf(e);
       bool disabled = disabledValues.contains(e);
+      bool isSelected = selectedValues.contains(e);
       return Card(
         margin:
             widget.margin ?? EdgeInsets.all(widget.absoluteZeroSpacing ? 0 : 4),
@@ -269,13 +278,7 @@ class CustomCheckBoxGroupState<T> extends State<CustomCheckBoxGroup<T>> {
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
-              style: widget.buttonTextStyle.textStyle.copyWith(
-                color: disabled
-                    ? widget.buttonTextStyle.disabledColor
-                    : selectedValues.contains(e)
-                        ? widget.buttonTextStyle.selectedColor
-                        : widget.buttonTextStyle.unSelectedColor,
-              ),
+              style: textStyle(isSelected, disabled),
             ),
           ),
         ),

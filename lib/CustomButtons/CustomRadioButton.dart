@@ -169,6 +169,7 @@ class CustomRadioButtonState<T> extends State<CustomRadioButton<T>> {
     return buttonValues.map((e) {
       int index = buttonValues.indexOf(e);
       bool disabled = disabledValues.contains(e);
+      bool isSelected = _currentSelectedValue == e;
       return Padding(
         padding: EdgeInsets.all(widget.padding),
         child: Card(
@@ -203,19 +204,11 @@ class CustomRadioButtonState<T> extends State<CustomRadioButton<T>> {
                       borderRadius: BorderRadius.zero,
                     ),
               onPressed: disabled ? null : () => selectButton(e),
-              child: Text(
-                widget.buttonLables[index],
-                textAlign: TextAlign.center,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                style: widget.buttonTextStyle.textStyle.copyWith(
-                  color: disabled
-                      ? widget.buttonTextStyle.disabledColor
-                      : _currentSelectedValue == e
-                          ? widget.buttonTextStyle.selectedColor
-                          : widget.buttonTextStyle.unSelectedColor,
-                ),
-              ),
+              child: Text(widget.buttonLables[index],
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                  style: textStyle(isSelected, disabled)),
             ),
           ),
         ),
@@ -227,6 +220,7 @@ class CustomRadioButtonState<T> extends State<CustomRadioButton<T>> {
     return buttonValues.map((e) {
       int index = buttonValues.indexOf(e);
       bool disabled = disabledValues.contains(e);
+      bool isSelected = _currentSelectedValue == e;
       return Card(
         margin:
             widget.margin ?? EdgeInsets.all(widget.absoluteZeroSpacing ? 0 : 4),
@@ -265,18 +259,27 @@ class CustomRadioButtonState<T> extends State<CustomRadioButton<T>> {
               textAlign: TextAlign.left,
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
-              style: widget.buttonTextStyle.textStyle.copyWith(
-                color: disabled
-                    ? widget.buttonTextStyle.disabledColor
-                    : _currentSelectedValue == e
-                        ? widget.buttonTextStyle.selectedColor
-                        : widget.buttonTextStyle.unSelectedColor,
-              ),
+              style: textStyle(isSelected, disabled),
             ),
           ),
         ),
       );
     }).toList();
+  }
+
+  TextStyle textStyle(bool isSelected, bool disabled) {
+    if (isSelected) {
+      return widget.buttonTextStyle.selectedTextStyle.copyWith(
+        color: disabled
+            ? widget.buttonTextStyle.disabledColor
+            : widget.buttonTextStyle.selectedColor,
+      );
+    }
+    return widget.buttonTextStyle.textStyle.copyWith(
+      color: disabled
+          ? widget.buttonTextStyle.disabledColor
+          : widget.buttonTextStyle.unSelectedColor,
+    );
   }
 
   @override

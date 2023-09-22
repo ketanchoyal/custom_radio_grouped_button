@@ -2,7 +2,7 @@ import 'package:custom_radio_grouped_button/custom_radio_grouped_button.dart';
 import 'package:flutter/material.dart';
 
 class RadioButton extends StatefulWidget {
-  RadioButton({Key key}) : super(key: key);
+  RadioButton({Key? key}) : super(key: key);
 
   @override
   State<RadioButton> createState() => _RadioButtonState();
@@ -26,7 +26,7 @@ class _RadioButtonState extends State<RadioButton> {
             FloatingActionButton(
               heroTag: "sfsdf",
               onPressed: () {
-                key.currentState.selectButton('jhgiugx');
+                key.currentState?.selectButton('jhgiugx');
               },
               child: Icon(Icons.check_box_outline_blank),
             ),
@@ -180,7 +180,13 @@ class _RadioButtonState extends State<RadioButton> {
                       buttonTextStyle: ButtonTextStyle(
                         selectedColor: Colors.white,
                         unSelectedColor: Colors.black,
-                        textStyle: Theme.of(context).textTheme.bodyLarge,
+                        selectedTextStyle: TextStyle(
+                          fontFamily: 'Montserrat',
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textStyle: Theme.of(context).textTheme.bodyLarge ??
+                            TextStyle(),
                       ),
                       radioButtonValue: (value) {
                         print(value);
