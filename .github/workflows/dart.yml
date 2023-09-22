@@ -2,16 +2,16 @@ name: Publish to Pub.dev
 
 on:
   push:
-    branches: [master]
+    branches: [beta, master]
 
 jobs:
   publishing:
     runs-on: ubuntu-latest
     steps:
-      - name: 'Checkout'
+      - name: "Checkout"
         uses: actions/checkout@v2 # required!
-        
-      - name: '>> Flutter package <<'
+
+      - name: ">> Flutter package <<"
         uses: k-paxian/dart-package-publisher@master
         with:
           credentialJson: ${{ secrets.CREDENTIAL_JSON }}

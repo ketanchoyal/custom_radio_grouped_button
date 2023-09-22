@@ -1,3 +1,6 @@
+# [2.2.1] - 22 Sep 2023
+- Added TextStyle for selected Button
+
 # [2.2.0+1] - 03 June 2023
 - Deprecated `radius` in favor of `borderRadius`
 

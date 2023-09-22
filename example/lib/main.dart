@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
 }
 
 class GroupedButton extends StatelessWidget {
-  const GroupedButton({Key key}) : super(key: key);
+  const GroupedButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -167,10 +167,15 @@ class GroupedButton extends StatelessWidget {
                     ),
                     CustomCheckBoxGroup(
                       buttonTextStyle: ButtonTextStyle(
-                        selectedColor: Colors.red,
+                        selectedColor: Colors.pinkAccent,
                         unSelectedColor: Colors.orange,
-                        textStyle:
-                            TextStyle(fontSize: 16, color: Colors.pinkAccent),
+                        textStyle: TextStyle(
+                          fontSize: 16,
+                        ),
+                        selectedTextStyle: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                       unSelectedColor: Theme.of(context).canvasColor,
                       buttonLables: [

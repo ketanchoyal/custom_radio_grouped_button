@@ -49,6 +49,10 @@ Add the following to your `pubspec.yaml` file:
         textStyle: TextStyle(
           fontSize: 16,
         ),
+        selectedTextStyle: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.w700,
+        ),
       ),
       unSelectedColor: Theme.of(context).canvasColor,
       buttonLables: [
