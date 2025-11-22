@@ -1,3 +1,7 @@
+# [2.3.0] - 22 Nov 2025
+- Added way to unselect button programmatically
+- Test cases added, fixed minor bug where even if shape is disabled corner radius is not zero
+
 # [2.2.1] - 22 Sep 2023
 - Added TextStyle for selected Button
 

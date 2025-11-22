@@ -88,7 +88,7 @@ class CustomRadioButton<T> extends StatefulWidget {
   ///Styling class for label
   final ButtonTextStyle buttonTextStyle;
 
-  final void Function(T) radioButtonValue;
+  final ValueChanged<T?> radioButtonValue;
 
   ///Unselected Color of the button
   final Color unSelectedColor;
@@ -159,7 +159,7 @@ class CustomRadioButtonState<T> extends State<CustomRadioButton<T>> {
   /// This function will select the button and update the state
   /// THis can be access from outside to change the selected value programatically
   /// Please note that this will all call the [radioButtonValue] callback
-  void selectButton(T selectedValue) {
+  void selectButton(T? selectedValue) {
     widget.radioButtonValue(selectedValue);
     if (mounted) setState(() {});
     _currentSelectedValue = selectedValue;
@@ -187,7 +187,9 @@ class CustomRadioButtonState<T> extends State<CustomRadioButton<T>> {
                     borderRadius:
                         BorderRadius.all(Radius.circular(widget.shapeRadius)),
                   )
-              : null,
+              : RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(0)),
+                ),
           child: Container(
             height: widget.height,
             child: MaterialButton(
@@ -236,7 +238,9 @@ class CustomRadioButtonState<T> extends State<CustomRadioButton<T>> {
                   borderRadius:
                       BorderRadius.all(Radius.circular(widget.shapeRadius)),
                 )
-            : null,
+            : RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(0)),
+              ),
         child: Container(
           height: widget.height,
           width: widget.autoWidth ? null : widget.width,
