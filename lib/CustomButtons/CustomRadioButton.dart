@@ -187,7 +187,9 @@ class CustomRadioButtonState<T> extends State<CustomRadioButton<T>> {
                     borderRadius:
                         BorderRadius.all(Radius.circular(widget.shapeRadius)),
                   )
-              : null,
+              : RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(0)),
+                ),
           child: Container(
             height: widget.height,
             child: MaterialButton(
@@ -236,7 +238,9 @@ class CustomRadioButtonState<T> extends State<CustomRadioButton<T>> {
                   borderRadius:
                       BorderRadius.all(Radius.circular(widget.shapeRadius)),
                 )
-            : null,
+            : RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(0)),
+              ),
         child: Container(
           height: widget.height,
           width: widget.autoWidth ? null : widget.width,

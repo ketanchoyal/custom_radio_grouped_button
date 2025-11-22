@@ -180,7 +180,7 @@ class CustomCheckBoxGroupState<T> extends State<CustomCheckBoxGroup<T>> {
               EdgeInsets.all(widget.absoluteZeroSpacing ? 0 : 4),
           color: disabled
               ? widget.disabledColor ?? widget.unSelectedColor
-              : selectedValues.contains(e)
+              : isSelected
                   ? widget.selectedColor
                   : widget.unSelectedColor,
           elevation: widget.elevation,
@@ -191,7 +191,9 @@ class CustomCheckBoxGroupState<T> extends State<CustomCheckBoxGroup<T>> {
                           BorderRadius.all(Radius.circular(widget.shapeRadius)),
                     )
                   : widget.customShape
-              : null,
+              : RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(0)),
+                ),
           child: Container(
             height: widget.height,
             child: MaterialButton(
@@ -257,7 +259,9 @@ class CustomCheckBoxGroupState<T> extends State<CustomCheckBoxGroup<T>> {
                         BorderRadius.all(Radius.circular(widget.shapeRadius)),
                   )
                 : widget.customShape
-            : null,
+            : RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(0)),
+              ),
         child: Container(
           height: widget.height,
           width: widget.autoWidth ? null : widget.width,
